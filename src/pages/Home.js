@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { withAuth } from '../providers/AuthProvider';
+// import { withAuth } from '../providers/AuthProvider';
 
 import Searchbar from '../components/Home/Searchbar';
 import Categories from '../components/Home/Categories';

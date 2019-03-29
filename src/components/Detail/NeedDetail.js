@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 
 import { withAuth } from '../../providers/AuthProvider';
 
+import UserCard from '../../components/UserCard';
+
 import needService from '../../lib/need-service';
 import applyService from '../../lib/apply-service';
 
@@ -11,9 +13,11 @@ import '../../public/styles/needdetail.css';
 class NeedDetail extends Component {
 
     state = {
-        need: [],
+        need: {},
+        applicants: [],
         isLoaded: false,
         isOwnNeed: false,
+        iApply: false,
     }
 
     async componentDidMount() {
@@ -21,26 +25,37 @@ class NeedDetail extends Component {
         const userId = this.props.user._id;
 
         try {
+            // get the need by id
             const need = await needService.getById(needId);
             const needOwnerId = need.data.owner._id;
             let isOwnNeed = (userId === needOwnerId);
 
+            //getting all applicants of needId
+            const allApplies = await applyService.getApplicants(needId);
+
+            // get clean array from json response (data)
+            let applicants = allApplies.data.allApplies;
+            applicants = applicants.map(apply => apply.applicant)
+
+            // check if I applied to this need
+            let iApply = applicants.filter(applicant => applicant._id === userId);
+            iApply = iApply.length > 0;
+
             this.setState({
                 isLoaded: true,
                 need: need.data,
-                isOwnNeed
+                isOwnNeed,
+                iApply,
+                applicants
             });
-            
 
         } catch (error) {
             console.log(error)
             this.props.history.push("/");
         }
-
     }
 
     apply = async () => {
-
         if (this.state.isOwnNeed) {
             this.props.history.push("/");
             return;
@@ -48,14 +63,42 @@ class NeedDetail extends Component {
 
         try {
             const userId = this.props.user._id;
-            const result = await applyService.add(this.state.need._id, userId);
-            console.log(result);
+            await applyService.add(this.state.need._id, userId);
+            this.setState({
+                iApply: true,
+                applicants: [...this.state.applicants, this.props.user]
+            });
         } catch (error) {
             console.log(error);
             this.props.history.push("/");
         }
-
     }
+
+    fillApplicantsList = () => {
+        const applicants = this.state.applicants.map((applicant, i) => {
+            return <UserCard key={i} applicant={applicant} />;
+        })
+
+
+        return applicants
+    }
+
+
+
+    // Because condition get complicated, I use a function to not degrade my code readability
+    iAppliedCondition = () => {
+        if (this.state.isOwnNeed) {
+            return <p className="detail-card-info-apply">Own need</p>
+        } else {
+            if (this.state.iApply) {
+                return <p className="detail-card-info-apply">Already applied</p>
+            } else {
+
+                return <p className="detail-card-info-apply"><button onClick={() => this.apply()}>Apply</button></p>
+            }
+        }
+    }
+
 
     render() {
         const { need } = this.state;
@@ -77,11 +120,7 @@ class NeedDetail extends Component {
                                 </div>
                                 <div className="detail-card-details">
                                     <div>
-                                        {this.state.isOwnNeed ?
-                                            <p className="detail-card-info-apply">Own need</p>
-                                            :
-                                            <p className="detail-card-info-apply"><button onClick={() => this.apply()}>Apply</button></p>
-                                        }
+                                        {this.iAppliedCondition()}
                                     </div>
                                     <div>
                                         <p className="detail-card-info-title">Applies:</p>
@@ -95,7 +134,7 @@ class NeedDetail extends Component {
                             </div>
                         </article>
                         <h1>Applicants:</h1>
-                        <p>cards here</p>
+                        {this.fillApplicantsList()}
                     </main>
                 </>
             );
