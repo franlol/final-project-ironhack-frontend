@@ -31,12 +31,12 @@ class NeedsAdd extends Component {
 		}
 
 		try {
-			const newNeed = await needService.add({ id: _id, title, rate, description });
-			if (newNeed.status === 200) {
-				console.log(this.props)
-				this.props.history.push("/")
-				return <Redirect to="/" />;
-			}
+			// const newNeed = 
+			await needService.add({ id: _id, title, rate, description });
+			// if (newNeed.status === 200) {
+			// 	console.log(this.props)
+			this.props.history.push("/")
+			// }
 		} catch (err) {
 			console.log(err)
 		}

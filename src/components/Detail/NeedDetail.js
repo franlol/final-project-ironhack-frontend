@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
+// import { Link } from 'react-router-dom';
+
+import { withAuth } from '../../providers/AuthProvider';
 
 import needService from '../../lib/need-service';
+import applyService from '../../lib/apply-service';
 
 import '../../public/styles/needdetail.css';
 
@@ -9,29 +13,53 @@ class NeedDetail extends Component {
     state = {
         need: [],
         isLoaded: false,
+        isOwnNeed: false,
     }
 
-    componentDidMount = async () => {
-        const { id } = this.props.match.params;
+    async componentDidMount() {
+        const needId = this.props.match.params.id;
+        const userId = this.props.user._id;
 
         try {
-            const need = await needService.getById(id);
-            if (need.status === 200) {
-                this.setState({
-                    need: need.data,
-                    isLoaded: true
-                });
+            const need = await needService.getById(needId);
+            const needOwnerId = need.data.owner._id;
+            let isOwnNeed = (userId === needOwnerId);
 
-            }
+            this.setState({
+                isLoaded: true,
+                need: need.data,
+                isOwnNeed
+            });
+            
+
         } catch (error) {
+            console.log(error)
+            this.props.history.push("/");
+        }
 
+    }
+
+    apply = async () => {
+
+        if (this.state.isOwnNeed) {
+            this.props.history.push("/");
+            return;
+        }
+
+        try {
+            const userId = this.props.user._id;
+            const result = await applyService.add(this.state.need._id, userId);
+            console.log(result);
+        } catch (error) {
+            console.log(error);
+            this.props.history.push("/");
         }
 
     }
 
     render() {
         const { need } = this.state;
-        console.log(need)
+
         if (this.state.isLoaded) {
             return (
                 <>
@@ -39,7 +67,7 @@ class NeedDetail extends Component {
                     <main className="detail-content">
 
                         <article className="detail-card shadow">
-                            {/* <!-- <img src="./img/faked_user.jpg" alt="faked user"> --> */}
+                            {/* <img src="./img/faked_user.jpg" alt="faked user"/> */}
                             <div className="detail-card-img-faker"></div>
                             <div className="detail-card-info">
                                 <h3>{need.title}</h3>
@@ -48,8 +76,17 @@ class NeedDetail extends Component {
                                     <p>{need.description}</p>
                                 </div>
                                 <div className="detail-card-details">
-                                    <div></div>
-                                    <p className="detail-card-info-apply"><a href="#1">Apply</a></p>
+                                    <div>
+                                        {this.state.isOwnNeed ?
+                                            <p className="detail-card-info-apply">Own need</p>
+                                            :
+                                            <p className="detail-card-info-apply"><button onClick={() => this.apply()}>Apply</button></p>
+                                        }
+                                    </div>
+                                    <div>
+                                        <p className="detail-card-info-title">Applies:</p>
+                                        <p className="detail-card-info-value">14</p>
+                                    </div>
                                     <div>
                                         <p className="detail-card-info-title">Rate:</p>
                                         <p className="detail-card-info-value">120€</p>
@@ -75,4 +112,4 @@ class NeedDetail extends Component {
 
 }
 
-export default NeedDetail;
+export default withAuth(NeedDetail);
