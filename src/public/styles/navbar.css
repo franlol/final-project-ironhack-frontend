@@ -1,0 +1,29 @@
+.home-nav {
+    position: fixed;
+    bottom: 0;
+}
+
+.home-nav-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: rgb(245, 244, 244);
+    /* border: 1px dashed dodgerblue; */
+    height: 44px;
+    width: 100vw;
+}
+
+.home-nav a {
+    color: #ced6e0;
+    text-decoration: underline;
+    font-size: 20px;
+    /* margin-bottom: 10px; */
+}
+
+.home-nav .home-nav-active {
+    color: dodgerblue;
+}
+
+.home-nav .home-nav-active-middle {
+    font-size: 24px;
+}

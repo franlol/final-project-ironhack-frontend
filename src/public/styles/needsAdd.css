@@ -1,0 +1,59 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-between; */
+    margin-left: 15px;
+    padding: 0;
+    height: 100vh;
+    /* border: 1px dashed red; */
+}
+
+.form-card {
+    display: flex;
+    margin: 15px 0 15px 40px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background: white;
+    height: 100%;
+}
+
+.form-content {
+    margin: 20px 0 0 20px;
+}
+
+.form-input {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-input label {
+    margin: 20px 10px;
+}
+
+.form-input input, textarea {
+    border: 0px solid black;
+    width: 120%;
+    border-radius: 5px;
+    height: 20px;
+    padding: 5px;
+    text-align: left;
+    font-size: 15px;
+}
+
+.form-input textarea {
+    height: 150px;
+    width: calc(120% - 10px);
+    font-family: "Lato", sans-serif;
+    padding: 10px;
+}
+
+.form-content form button {
+    border: 0px solid red;
+    width: 120%;
+    height: 45px;
+    margin: 20px 5px;
+    font-size: 20px;
+    background: linear-gradient(to right, #36D1DC, #5B86E5);
+    color: white;
+    border-radius: 25px;
+}

@@ -1,0 +1,74 @@
+.detail-card {
+    display: flex;
+    margin: 0px 0 30px 40px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background: white;
+}
+
+.detail-card-img-faker {
+    height: 151px;
+}
+
+.detail-card-info {
+    display: flex;
+    flex-direction: column;
+    /* position: relative; */
+    /* left: -30px; */
+}
+
+.detail-card-info h3 {
+    margin: 15px 0 0 15px;
+}
+
+.detail-card-info p {
+    margin: 5px 0 10px 15px;
+    color: #ff4b1f;
+    font-size: 14px;
+}
+
+.detail-card-description {
+    width: 95%;
+    margin: 10px 20px 0 0;
+}
+
+.detail-card-description p {
+    /* text-align: justify; */
+    letter-spacing: .6px;
+    color: #2c3e50;
+}
+
+.detail-card-details {
+    display: flex;
+    justify-content: space-around;
+    margin: 10px 0 10px 15px;
+}
+
+.detail-card-info-apply {
+    display: flex;
+}
+
+.detail-card-info-apply a {
+    /* text-decoration: none; */
+    color: dodgerblue;
+    margin-top: auto;
+    padding-bottom: 4px;
+}
+
+.detail-card-info .detail-card-info-title {
+    margin: 0;
+    color: #b4b9c0;
+    text-align: left;
+}
+
+.detail-card-info .detail-card-info-value {
+    margin: 5px 0 0 0;
+    ;
+    color: #2c3e50;
+    text-align: left;
+    font-weight: bold;
+}
+
+.detail-card-info .detail-card-info-value i {
+    color: #ffdd59;
+}
