@@ -24,6 +24,11 @@ class NeedService {
         return need;
     }
 
+    async update(userId, need) {
+        const updatedNeed = await this.need.post(`/need/${need.needId}`, { userId, need });
+        return updatedNeed;
+    }
+
 }
 
 const needService = new NeedService();

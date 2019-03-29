@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+
 import { withAuth } from '../providers/AuthProvider';
 import needService from '../lib/need-service';
+
 
 import FormAdd from '../components/FormAdd';
 import FormEdit from '../components/FormEdit';
@@ -28,7 +30,6 @@ class NeedsAdd extends Component {
 
 	addNeed = async (e, title, rate, description) => {
 		e.preventDefault();
-		console.log(e, title, rate, description)
 		const { _id } = this.props.user;
 
 		if (!title || !rate || !description) {
@@ -38,21 +39,29 @@ class NeedsAdd extends Component {
 		}
 
 		try {
-			await needService.add({ id: _id, title, rate, description });
-			this.props.history.push("/")
+			const need = await needService.add({ id: _id, title, rate, description });
+			this.props.history.push(`/need/${need.data.need._id}`);
 		} catch (err) {
-			console.log(err)
+			console.log(err);
 		}
 	}
 
-	updateNeed = async() => {
-		console.log("edit")
+	updateNeed = async (e, needId, title, rate, description) => {
+		e.preventDefault();
+		const userId = this.props.user._id;
+
+		try {
+			const updatedNeed = await needService.update(userId, { needId, title, rate, description });
+			this.props.history.push(`/need/${updatedNeed.data._id}`);
+		} catch (err) {
+			//TODO FILL INPUT BORDERS WITH RED
+			console.log(err);
+		}
+
 	}
 
 	render() {
-		// const { title, rate, description, isEdit } = this.state;
 		const { isEdit } = this.state;
-
 
 		return (
 			<>
@@ -60,7 +69,7 @@ class NeedsAdd extends Component {
 				<main className="form-card shadow">
 
 					<div className="form-content">
-						{isEdit && <FormEdit updateNeed={this.updateNeed}/>}
+						{isEdit && <FormEdit updateNeed={this.updateNeed} />}
 						{!isEdit && <FormAdd addNeed={this.addNeed} />}
 					</div>
 
