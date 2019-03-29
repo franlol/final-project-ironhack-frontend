@@ -23,8 +23,11 @@
 .list-card-info {
     display: flex;
     flex-direction: column;
+
     position: relative;
     left: -30px;
+
+    width: 100%;
 }
 
 .list-card-info h3 {

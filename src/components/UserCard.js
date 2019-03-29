@@ -8,7 +8,7 @@ class UserCard extends Component {
 
         return (
             <article className="list-card shadow">
-                <img src="./img/faked_user.jpg" alt="faked user" />
+                <img src="https://qsf.fs.quoracdn.net/-3-images.new_grid.profile_pic_anon.png-26-da5ea6d307f82722.png" alt="faked user" />
                 <div className="list-card-img-faker"></div>
                 <div className="list-card-info">
                     <h3>{applicant.username}</h3>

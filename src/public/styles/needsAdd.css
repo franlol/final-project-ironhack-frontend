@@ -10,7 +10,7 @@
 
 .form-card {
     display: flex;
-    margin: 15px 0 15px 40px;
+    margin: 0 0 15px 10px;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     background: white;
@@ -19,11 +19,13 @@
 
 .form-content {
     margin: 20px 0 0 20px;
+    width: 100%;
 }
 
 .form-input {
     display: flex;
     flex-direction: column;
+    margin-right: 40px;
 }
 
 .form-input label {
@@ -32,7 +34,7 @@
 
 .form-input input, textarea {
     border: 0px solid black;
-    width: 120%;
+    width: 100%;
     border-radius: 5px;
     height: 20px;
     padding: 5px;
@@ -42,16 +44,16 @@
 
 .form-input textarea {
     height: 150px;
-    width: calc(120% - 10px);
+    width: calc(100% - 10px);
     font-family: "Lato", sans-serif;
     padding: 10px;
 }
 
 .form-content form button {
     border: 0px solid red;
-    width: 120%;
+    width: 100%;
     height: 45px;
-    margin: 20px 5px;
+    margin: 20px 0;
     font-size: 20px;
     background: linear-gradient(to right, #36D1DC, #5B86E5);
     color: white;

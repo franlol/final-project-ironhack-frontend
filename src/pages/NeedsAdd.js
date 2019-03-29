@@ -23,9 +23,9 @@ class NeedsAdd extends Component {
 	addNeed = async (e, title, rate, description) => {
 		e.preventDefault();
 		const { _id } = this.props.user;
-		
+
 		if (!title || !rate || !description) {
-			this.setState({formError: true});
+			this.setState({ formError: true });
 			console.log("missing data")
 			return;
 		}
@@ -68,8 +68,10 @@ class NeedsAdd extends Component {
 								<label htmlFor="description">Description:</label>
 								<textarea value={description} onChange={this.formInputHandler} name="description" id="description" className="shadow" placeholder="Description here.."></textarea>
 							</div>
-
-							<button className="shadow" type="submit">Create</button>
+							
+							<div className="form-input">
+								<button className="shadow" type="submit">Create</button>
+							</div>
 						</form>
 
 					</div>

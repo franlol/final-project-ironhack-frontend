@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { withAuth } from '../../providers/AuthProvider';
 
@@ -9,6 +9,11 @@ import needService from '../../lib/need-service';
 import applyService from '../../lib/apply-service';
 
 import '../../public/styles/needdetail.css';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
+
+library.add(faEdit);
 
 class NeedDetail extends Component {
 
@@ -50,7 +55,7 @@ class NeedDetail extends Component {
             });
 
         } catch (error) {
-            console.log(error)
+            console.log(error);
             this.props.history.push("/");
         }
     }
@@ -77,10 +82,9 @@ class NeedDetail extends Component {
     fillApplicantsList = () => {
         const applicants = this.state.applicants.map((applicant, i) => {
             return <UserCard key={i} applicant={applicant} />;
-        })
+        });
 
-
-        return applicants
+        return applicants;
     }
 
 
@@ -88,7 +92,12 @@ class NeedDetail extends Component {
     // Because condition get complicated, I use a function to not degrade my code readability
     iAppliedCondition = () => {
         if (this.state.isOwnNeed) {
-            return <p className="detail-card-info-apply">Own need</p>
+            return (
+                <>
+                    <p className="detail-card-info-title">Own recipe:</p>
+                    <Link to="/" className="detail-card-info-value"><FontAwesomeIcon icon="edit" /></Link>
+                </>
+            );
         } else {
             if (this.state.iApply) {
                 return <p className="detail-card-info-apply">Already applied</p>
@@ -128,7 +137,7 @@ class NeedDetail extends Component {
                                     </div>
                                     <div>
                                         <p className="detail-card-info-title">Rate:</p>
-                                        <p className="detail-card-info-value">120€</p>
+                                        <p className="detail-card-info-value">{need.rate}€</p>
                                     </div>
                                 </div>
                             </div>

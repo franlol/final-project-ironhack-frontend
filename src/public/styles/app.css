@@ -12,6 +12,8 @@ body {
 
     font-family: "Lato", sans-serif;
     background: rgb(245, 244, 244);
+
+    color: #2c3e50;
 }
 
 .container {
@@ -20,10 +22,10 @@ body {
 
     /* justify-content: space-between; */
 
-    margin: 0 0 0 15px;
+    margin: 0 0 40px 15px;
     padding: 0;
 
-    /* height: 100vh; */
+    height: 100%;
     /* border: 1px dashed red; */
 }
 
