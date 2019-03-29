@@ -8,6 +8,22 @@ class FormEdit extends Component {
         description: '',
     }
 
+    async componentDidMount() {
+        console.log(this.props)
+
+        // try {
+        //     // get the need by id
+        //     const need = await needService.getById(needId);
+        //     const needOwnerId = need.data.owner._id;
+        //     let isOwnNeed = (userId === needOwnerId);
+
+
+        // } catch (error) {
+        //     console.log(error);
+        //     this.props.history.push("/");
+        // }
+    }
+
     formInputHandler = (ev) => {
         this.setState({
             [ev.target.name]: ev.target.value

@@ -43,7 +43,10 @@ class NeedsAdd extends Component {
 		} catch (err) {
 			console.log(err)
 		}
+	}
 
+	updateNeed = async() => {
+		console.log("edit")
 	}
 
 	render() {
@@ -57,7 +60,7 @@ class NeedsAdd extends Component {
 				<main className="form-card shadow">
 
 					<div className="form-content">
-						{isEdit && <FormEdit/>}
+						{isEdit && <FormEdit updateNeed={this.updateNeed}/>}
 						{!isEdit && <FormAdd addNeed={this.addNeed} />}
 					</div>
 
