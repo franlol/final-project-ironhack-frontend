@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { withAuth } from '../providers/AuthProvider';
 import needService from '../lib/need-service';
-// import { Redirect } from 'react-router-dom';
+
+import FormAdd from '../components/FormAdd';
+import FormEdit from '../components/FormEdit';
 
 import '../public/styles/needsAdd.css';
 
@@ -12,16 +14,21 @@ class NeedsAdd extends Component {
 		rate: '',
 		description: '',
 		formError: false,
+		isLoading: true,
 	}
 
-	formInputHandler = (ev) => {
+	componentDidMount() {
 		this.setState({
-			[ev.target.name]: ev.target.value
+			isEdit: this.props.match.path === '/need/:id/edit',
+			isLoading: false,
 		});
 	}
 
+
+
 	addNeed = async (e, title, rate, description) => {
 		e.preventDefault();
+		console.log(e, title, rate, description)
 		const { _id } = this.props.user;
 
 		if (!title || !rate || !description) {
@@ -31,12 +38,8 @@ class NeedsAdd extends Component {
 		}
 
 		try {
-			// const newNeed = 
 			await needService.add({ id: _id, title, rate, description });
-			// if (newNeed.status === 200) {
-			// 	console.log(this.props)
 			this.props.history.push("/")
-			// }
 		} catch (err) {
 			console.log(err)
 		}
@@ -44,7 +47,9 @@ class NeedsAdd extends Component {
 	}
 
 	render() {
-		const { title, rate, description } = this.state;
+		// const { title, rate, description, isEdit } = this.state;
+		const { isEdit } = this.state;
+
 
 		return (
 			<>
@@ -52,28 +57,8 @@ class NeedsAdd extends Component {
 				<main className="form-card shadow">
 
 					<div className="form-content">
-
-						<form onSubmit={(e) => this.addNeed(e, title, rate, description)}>
-							<div className="form-input">
-								<label htmlFor="title">Title:</label>
-								<input value={title} onChange={this.formInputHandler} className="shadow" id="title" type="text" name="title" />
-							</div>
-
-							<div className="form-input">
-								<label htmlFor="rate">Rate:</label>
-								<input value={rate} onChange={this.formInputHandler} className="shadow" id="rate" type="number" name="rate" />
-							</div>
-
-							<div className="form-input">
-								<label htmlFor="description">Description:</label>
-								<textarea value={description} onChange={this.formInputHandler} name="description" id="description" className="shadow" placeholder="Description here.."></textarea>
-							</div>
-							
-							<div className="form-input">
-								<button className="shadow" type="submit">Create</button>
-							</div>
-						</form>
-
+						{isEdit && <FormEdit/>}
+						{!isEdit && <FormAdd addNeed={this.addNeed} />}
 					</div>
 
 				</main>

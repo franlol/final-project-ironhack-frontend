@@ -30,6 +30,7 @@ class App extends Component {
             <PrivateRoute exact path="/" component={Home} />
             <PrivateRoute exact path="/need/add" component={NeedsAdd} />
             <PrivateRoute exact path="/need/:id" component={NeedDetail} />
+            <PrivateRoute exact path="/need/:id/edit" component={NeedsAdd} />
             <PrivateRoute exact path="/profile" component={Profile} />
 
             {/* Auth routes */}

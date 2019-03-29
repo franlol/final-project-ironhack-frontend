@@ -25,6 +25,9 @@ class NeedDetail extends Component {
         iApply: false,
     }
 
+    async componentDidUpdate() {
+    }
+    
     async componentDidMount() {
         const needId = this.props.match.params.id;
         const userId = this.props.user._id;
@@ -92,17 +95,17 @@ class NeedDetail extends Component {
     // Because condition get complicated, I use a function to not degrade my code readability
     iAppliedCondition = () => {
         if (this.state.isOwnNeed) {
+            const { need } = this.state;
             return (
                 <>
                     <p className="detail-card-info-title">Own recipe:</p>
-                    <Link to="/" className="detail-card-info-value"><FontAwesomeIcon icon="edit" /></Link>
+                    <Link to={`/need/${need._id}/edit`} className="detail-card-info-value"><FontAwesomeIcon icon="edit" /></Link>
                 </>
             );
         } else {
             if (this.state.iApply) {
                 return <p className="detail-card-info-apply">Already applied</p>
             } else {
-
                 return <p className="detail-card-info-apply"><button onClick={() => this.apply()}>Apply</button></p>
             }
         }
@@ -129,6 +132,7 @@ class NeedDetail extends Component {
                                 </div>
                                 <div className="detail-card-details">
                                     <div>
+                                        {/* Apply / Own need - edit / Already applied */}
                                         {this.iAppliedCondition()}
                                     </div>
                                     <div>
