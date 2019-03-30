@@ -59,7 +59,7 @@ class NeedDetail extends Component {
                 need: need.data,
                 isOwnNeed,
                 iApplied,
-                applies
+                applies: applies.reverse()
             });
 
         } catch (error) {
@@ -87,7 +87,7 @@ class NeedDetail extends Component {
             await applyService.add(needId, userId, comment);
             this.setState({
                 iApplied: true,
-                applies: [...this.state.applies, { applicant: this.props.user, comment }]
+                applies: [{ applicant: this.props.user, comment }, ...this.state.applies]
             });
 
         } catch (error) {
@@ -153,9 +153,9 @@ class NeedDetail extends Component {
         if (this.state.isLoaded) {
             return (
                 <>
-                    <h1>Need detail:</h1>
                     <main className="detail-content">
 
+                        <h1>Need detail:</h1>
                         <article className="detail-card shadow">
                             {/* <img src="./img/faked_user.jpg" alt="faked user"/> */}
                             <div className="detail-card-img-faker"></div>
