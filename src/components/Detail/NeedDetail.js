@@ -11,9 +11,9 @@ import applyService from '../../lib/apply-service';
 import '../../public/styles/needdetail.css';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
-library.add(faEdit);
+library.add(faEdit, faTrashAlt);
 
 class NeedDetail extends Component {
 
@@ -25,9 +25,6 @@ class NeedDetail extends Component {
         iApply: false,
     }
 
-    async componentDidUpdate() {
-    }
-    
     async componentDidMount() {
         const needId = this.props.match.params.id;
         const userId = this.props.user._id;
@@ -86,11 +83,8 @@ class NeedDetail extends Component {
         const applicants = this.state.applicants.map((applicant, i) => {
             return <UserCard key={i} applicant={applicant} />;
         });
-
         return applicants;
     }
-
-
 
     // Because condition get complicated, I use a function to not degrade my code readability
     iAppliedCondition = () => {
@@ -100,6 +94,7 @@ class NeedDetail extends Component {
                 <>
                     <p className="detail-card-info-title">Own recipe:</p>
                     <Link to={`/need/${need._id}/edit`} className="detail-card-info-value"><FontAwesomeIcon icon="edit" /></Link>
+                    <p onClick={this.deleteNeed} className="detail-card-info-value"><FontAwesomeIcon icon="trash-alt" /></p>
                 </>
             );
         } else {
@@ -108,6 +103,26 @@ class NeedDetail extends Component {
             } else {
                 return <p className="detail-card-info-apply"><button onClick={() => this.apply()}>Apply</button></p>
             }
+        }
+    }
+
+    deleteNeed = async () => {
+        if (!this.state.isOwnNeed) {
+            this.props.history.push("/");
+            return;
+        }
+
+        try {
+            const needId = this.state.need._id;
+            const userId = this.props.user._id;
+
+            await needService.delete(needId, userId);
+            console.log("delete")
+            this.props.history.push("/");
+
+        } catch (err) {
+            this.props.history.push("/");
+            console.log(err)
         }
     }
 
@@ -132,7 +147,7 @@ class NeedDetail extends Component {
                                 </div>
                                 <div className="detail-card-details">
                                     <div>
-                                        {/* Apply / Own need - edit / Already applied */}
+                                        {/* Apply / Own need - edit / Already applied / delete */}
                                         {this.iAppliedCondition()}
                                     </div>
                                     <div>

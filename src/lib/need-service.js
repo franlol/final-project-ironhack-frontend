@@ -20,13 +20,20 @@ class NeedService {
     }
 
     async getById(id) {
-        const need = await this.need.get(`/need/${id}`);
+        const need = await this.need.get(`/need/${id}`); // get requires body with 'params  ' key
         return need;
     }
 
+    // TO DO ==> POST TO PUT
     async update(userId, need) {
         const updatedNeed = await this.need.post(`/need/${need.needId}`, { userId, need });
         return updatedNeed;
+    }
+
+    async delete(needId, userId) {
+        const deleted = await this.need.delete(`/need/${needId}`, { data: { needId, userId } }); // delete requires body with 'data' key
+        return deleted;
+        // if OK, 204, no content
     }
 
 }
