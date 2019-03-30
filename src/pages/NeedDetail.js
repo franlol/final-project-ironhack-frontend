@@ -42,11 +42,7 @@ class NeedDetail extends Component {
             // get clean array from json response (data). I get the apply data (applicant (populated), comments, timestamps etc..)
             let applies = allApplies.data.allApplies;
 
-            // return applicant and comment
-            // applies = applies.map(apply => {
-            //     // apply.comment
-            //     return apply.applicant
-            // });
+            // parsing applies to use in setSTate later
             applies = applies.map(apply => {
                 return {
                     applicant: apply.applicant,
@@ -154,8 +150,6 @@ class NeedDetail extends Component {
     render() {
         const { need } = this.state;
 
-        // console.log(this.state)
-
         if (this.state.isLoaded) {
             return (
                 <>
@@ -178,7 +172,7 @@ class NeedDetail extends Component {
                                     </div>
                                     <div>
                                         <p className="detail-card-info-title">Applies:</p>
-                                        <p className="detail-card-info-value">14</p>
+                                        <p className="detail-card-info-value">{this.state.applies.length}</p>
                                     </div>
                                     <div>
                                         <p className="detail-card-info-title">Rate:</p>
