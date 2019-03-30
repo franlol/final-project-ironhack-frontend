@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
 
-import Comment from '../components/Comment';
-import Status from '../components/Status';
+import Comment from './Comment';
+import Status from './Status';
 
-import '../public/styles/usercard.css';
+import '../public/styles/applicantcard.css';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 library.add(faStar);
 
-class UserCard extends Component {
+class ApplicantCard extends Component {
 
     render() {
         const { applicant, comment } = this.props.apply;
-// console.log(this.props)
+        const { apply, isOwnNeed } = this.props;
+
         return (
             <>
                 <article className="list-card shadow">
@@ -38,7 +39,7 @@ class UserCard extends Component {
                             </div>
                         </div>
                         <Comment comment={comment} />
-                        <Status />
+                        <Status apply={apply} isOwnNeed={isOwnNeed} />
                     </div>
                 </article>
 
@@ -48,6 +49,6 @@ class UserCard extends Component {
 
 }
 
-export default UserCard;
+export default ApplicantCard;
 
 // description.replace(/\n/g, '<br>');

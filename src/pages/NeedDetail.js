@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { withAuth } from '../providers/AuthProvider';
 
-import UserCard from '../components/UserCard';
+import ApplicantCard from '../components/ApplicantCard';
 import AddComment from '../components/AddComment';
 
 import needService from '../lib/need-service';
@@ -44,13 +44,12 @@ class NeedDetail extends Component {
 
             // parsing applies to use in setSTate later
             applies = applies.map(apply => {
-                console.log(apply)
-
-                return {
+                return apply;
+                // return {
                     
-                    applicant: apply.applicant,
-                    comment: apply.comment
-                }
+                //     applicant: apply.applicant,
+                //     comment: apply.comment
+                // }
             });
 
             // check if I applied to this need
@@ -101,7 +100,7 @@ class NeedDetail extends Component {
 
     fillApplicantsList = () => {
         const applies = this.state.applies.map((apply, i) => {
-            return <UserCard key={i} apply={apply} />;
+            return <ApplicantCard key={i} apply={apply} isOwnNeed={this.state.isOwnNeed}/>;
         });
         return applies;
     }

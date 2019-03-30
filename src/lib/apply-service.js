@@ -19,6 +19,11 @@ class ApplyService {
         return applicants;
     }
 
+    async updateStatus(applyId, status) {
+        const updated = await this.apply.put(`/apply/${applyId}`, status);
+        return updated;
+    }
+
 }
 
 const applyService = new ApplyService();
