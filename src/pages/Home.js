@@ -3,12 +3,12 @@ import React, { Component } from 'react'
 
 import Searchbar from '../components/Home/Searchbar';
 import Categories from '../components/Home/Categories';
-import MoreContent from '../components/Home/MoreContent';
+import NeedList from '../components/NeedList';
 
 class Home extends Component {
 
   state = {
-    moreContent: [],
+    needs: [],
   }
 
   render() {
@@ -17,7 +17,7 @@ class Home extends Component {
       <>
         <Searchbar />
         <Categories/>
-        <MoreContent content={this.state.moreContent}/>
+        <NeedList content={this.state.needs}/>
       </>
     )
   }

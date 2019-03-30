@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
-import NeedCardSmall from './NeedCardSmall';
+import NeedCardSmall from './Home/NeedCardSmall';
 
-import needService from '../../lib/need-service';
+import needService from '../lib/need-service';
 
-import '../../public/styles/moreContent.css';
+import '../public/styles/needlist.css';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -12,7 +12,7 @@ import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 library.add(faChevronRight);
 
-class MoreContent extends Component {
+class NeedList extends Component {
 
     state = {
         list: [],
@@ -21,7 +21,7 @@ class MoreContent extends Component {
 
     componentDidMount = async () => {
         try {
-            const list = await needService.moreContentGetLatest();
+            const list = await needService.getLatest();
             const { latest } = list.data;
 
             this.setState({ list: latest, isLoaded: true })
@@ -62,4 +62,4 @@ class MoreContent extends Component {
 
 }
 
-export default MoreContent;
+export default NeedList;

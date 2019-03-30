@@ -14,7 +14,7 @@ class NeedService {
         return newNeed;
     }
 
-    async moreContentGetLatest() {
+    async getLatest() {
         const latest = await this.need.get('/need/latest');
         return latest;
     }
