@@ -86,15 +86,17 @@ class NeedDetail extends Component {
         return applicants;
     }
 
-    // Because condition get complicated, I use a function to not degrade my code readability
+    // Because condition get 'complicated', I use a function to not degrade my code readability
     iAppliedCondition = () => {
         if (this.state.isOwnNeed) {
             const { need } = this.state;
             return (
                 <>
                     <p className="detail-card-info-title">Own recipe:</p>
-                    <Link to={`/need/${need._id}/edit`} className="detail-card-info-value"><FontAwesomeIcon icon="edit" /></Link>
-                    <p onClick={this.deleteNeed} className="detail-card-info-value"><FontAwesomeIcon icon="trash-alt" /></p>
+                    <div className="detail-card-details-actions">
+                        <Link to={`/need/${need._id}/edit`} className="detail-card-info-value"><FontAwesomeIcon icon="edit" /></Link>
+                        <p onClick={this.deleteNeed} className="detail-card-details-actions-trash detail-card-info-value"><FontAwesomeIcon icon="trash-alt" /></p>
+                    </div>
                 </>
             );
         } else {
@@ -117,7 +119,6 @@ class NeedDetail extends Component {
             const userId = this.props.user._id;
 
             await needService.delete(needId, userId);
-            console.log("delete")
             this.props.history.push("/");
 
         } catch (err) {

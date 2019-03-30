@@ -47,6 +47,15 @@
     margin: 10px 0 10px 15px;
 }
 
+.detail-card-details-actions {
+    display: flex;
+    justify-content: space-around;
+}
+
+.detail-card-details-actions p {
+    font-size: 16px;
+}
+
 .detail-card-info-apply {
     display: flex;
 
