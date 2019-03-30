@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 
-import '../public/styles/common.css';
+import '../public/styles/comment.css';
 
 class Comment extends Component {
 
     componentDidMount() {
 
         // Formating comments, to replace \b by <br>
-        let comments = document.querySelectorAll('.common-comment p');
+        let comments = document.querySelectorAll('.comment-text p');
         comments.forEach((comment) => {
             let content = comment.innerHTML.replace(/\n/g, '<br>');
             comment.innerHTML = content;
@@ -19,7 +19,7 @@ class Comment extends Component {
         const { comment } = this.props;
 
         return (
-            <div className="common-comment">
+            <div className="comment-text">
                 <hr/>
                 <p>{comment}</p>
             </div>

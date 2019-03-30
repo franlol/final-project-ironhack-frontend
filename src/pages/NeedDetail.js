@@ -44,7 +44,10 @@ class NeedDetail extends Component {
 
             // parsing applies to use in setSTate later
             applies = applies.map(apply => {
+                console.log(apply)
+
                 return {
+                    
                     applicant: apply.applicant,
                     comment: apply.comment
                 }

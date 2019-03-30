@@ -1,0 +1,26 @@
+.status-wrap {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 7px; 
+}
+
+.status-accept {
+    color: green;
+}
+
+.status-decline {
+    color: red;
+    margin: 0 10px 0 14px;
+}
+
+.status-accepted {
+    font-style: italic;
+    color: green;
+    margin: 0;
+}
+
+.status-declined {
+    font-style: italic;
+    color: red;
+    margin: 0 10px 0 !important;
+}

@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
-import NeedCardSmall from './Home/NeedCardSmall';
+import ListCard from './NeedCard';
 
 import needService from '../lib/need-service';
 
 import '../public/styles/needlist.css';
 
-import { library } from '@fortawesome/fontawesome-svg-core';
+// import { library } from '@fortawesome/fontawesome-svg-core';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
+// import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
-library.add(faChevronRight);
+// library.add(faChevronRight);
 
 class NeedList extends Component {
 
@@ -32,7 +33,7 @@ class NeedList extends Component {
 
     listLatest = () => {
         const { list } = this.state;
-        return list.map((need, i) => <NeedCardSmall key={i} need={need} />)
+        return list.map((need, i) => <ListCard key={i} need={need} />)
     }
 
     render() {
@@ -42,7 +43,7 @@ class NeedList extends Component {
                 <section className="home-content-more">
                     <div className="title">
                         <h2>Latest:</h2>
-                        <a href="/list.html">See all</a>
+                        <Link to="/need/all">See all</Link>
                     </div>
                     <section>
                         {this.state.isLoaded && this.listLatest()}

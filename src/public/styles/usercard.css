@@ -10,8 +10,8 @@
     position: relative;
     top: 15px;
     left: -30px;
-    width: 90px;
-    height: 90px;
+    min-width: 70px;
+    height: 70px;
     border-radius: 10px;
     box-shadow: 0px 0px 13px -1px rgba(0, 0, 0, 0.72);
 }
@@ -35,8 +35,9 @@
 }
 
 .list-card-info p {
-    margin: 5px 0 0 15px;
+    margin: 0 0 20px 15px;
     color: #ff4b1f;
+    font-size: 14px;
 }
 
 .list-card-details {
@@ -59,6 +60,6 @@
     font-weight: bold;
 }
 
-.list-card-info .list-card-info-value i {
+.list-card-info .list-card-info-value svg {
     color: #ffdd59;
 }

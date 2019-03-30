@@ -7,7 +7,7 @@ import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 library.add(faChevronRight);
 
-class NeedCardSmall extends Component {
+class ListCard extends Component {
 
     render() {
         const { need } = this.props;
@@ -21,4 +21,4 @@ class NeedCardSmall extends Component {
 
 }
 
-export default NeedCardSmall;
+export default ListCard;
