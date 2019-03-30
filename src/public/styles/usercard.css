@@ -42,7 +42,7 @@
 .list-card-details {
     display: flex;
     justify-content: space-between;
-    margin: auto 0 10px 15px;
+    margin: auto 10px 10px 15px;
 }
 
 .list-card-info .list-card-info-title {
