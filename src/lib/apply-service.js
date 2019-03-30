@@ -9,8 +9,8 @@ class ApplyService {
         });
     }
 
-    async add(needId, userId) {
-        const newApply = await this.apply.post('/apply/add', { needId, userId });
+    async add(needId, userId, comment) {
+        const newApply = await this.apply.post('/apply/add', { needId, userId, comment });
         return newApply;
     }
 

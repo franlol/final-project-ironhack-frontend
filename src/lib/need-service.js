@@ -24,7 +24,6 @@ class NeedService {
         return need;
     }
 
-    // TO DO ==> POST TO PUT
     async update(userId, need) {
         const updatedNeed = await this.need.put(`/need/${need.needId}`, { userId, need });
         return updatedNeed;

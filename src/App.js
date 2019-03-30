@@ -11,7 +11,7 @@ import Signup from './pages/Signup';
 import Login from './pages/Login';
 import NeedsAdd from './pages/NeedsAdd';
 import Profile from './pages/Profile';
-import NeedDetail from './components/Detail/NeedDetail';
+import NeedDetail from './pages/NeedDetail';
 
 import './public/styles/app.css';
 
