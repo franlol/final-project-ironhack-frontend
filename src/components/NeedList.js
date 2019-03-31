@@ -7,51 +7,42 @@ import needService from '../lib/need-service';
 
 import '../public/styles/needlist.css';
 
-// import { library } from '@fortawesome/fontawesome-svg-core';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
-
-// library.add(faChevronRight);
-
 class NeedList extends Component {
 
     state = {
-        list: [],
-        isLoaded: false
+        needs: [],
+        isLoaded: false,
     }
 
     componentDidMount = async () => {
         try {
-            const list = await needService.getLatest();
-            const { latest } = list.data;
 
-            this.setState({ list: latest, isLoaded: true })
+            const needs = await needService.getLatest();
+            const data = needs.data;
+
+            this.setState({ needs: data, isLoaded: true });
+
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
     }
 
-    listLatest = () => {
-        const { list } = this.state;
-        return list.map((need, i) => <ListCard key={i} need={need} />)
+    listNeeds = () => {
+        const { needs } = this.state;
+        return needs.latest.map((need, i) => <ListCard key={i} need={need} />)
     }
 
     render() {
-
         return (
             <>
                 <section className="home-content-more">
                     <div className="title">
                         <h2>Latest:</h2>
-                        <Link to="/need/all">See all</Link>
+                        <Link to="/search">See all</Link>
                     </div>
                     <section>
-                        {this.state.isLoaded && this.listLatest()}
+                        {this.state.isLoaded && this.listNeeds()}
                         {/* <div><a href="/needdetail.html">Dj for my private friday party</a><FontAwesomeIcon icon="chevron-right" /></div>
-                        <div><a href="/needdetail.html">Electrician to fix bathroom lights</a><FontAwesomeIcon icon="chevron-right" /></div>
-                        <div><a href="/needdetail.html">UI designer to take away my headaches</a><FontAwesomeIcon icon="chevron-right" /></div>
-                        <div><a href="/needdetail.html">Verificator to verify some shit</a><FontAwesomeIcon icon="chevron-right" /></div>
-                        <div><a href="/needdetail.html">Ironhacker to code my application</a><FontAwesomeIcon icon="chevron-right" /></div>
                         <div><a href="/needdetail.html">Electrician to fix bathroom lights</a><FontAwesomeIcon icon="chevron-right" /></div>
                         <div><a href="/needdetail.html">UI designer to take away my headaches</a><FontAwesomeIcon icon="chevron-right" /></div>
                         <div><a href="/needdetail.html">Verificator to verify some shit</a><FontAwesomeIcon icon="chevron-right" /></div> */}

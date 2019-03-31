@@ -149,6 +149,11 @@ class NeedDetail extends Component {
         }
     }
 
+    getTags = () => {
+        return this.state.need.tags.map((n, i) => {
+            return `${n.text}${i+1 < this.state.need.tags.length ? ',' : ''} `;
+        })
+    }
 
     render() {
         const { need } = this.state;
@@ -164,6 +169,7 @@ class NeedDetail extends Component {
                             <div className="detail-card-img-faker"></div>
                             <div className="detail-card-info">
                                 <h3>{need.title}</h3>
+                                <p className="detail-card-info-tags">{this.getTags()}</p>
                                 <p>{need.owner.username}</p>
                                 <div className="detail-card-description">
                                     <p>{need.description}</p>

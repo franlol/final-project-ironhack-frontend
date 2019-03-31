@@ -16,8 +16,8 @@ class Home extends Component {
     return (
       <>
         <Searchbar />
-        <Categories/>
-        <NeedList content={this.state.needs}/>
+        <Categories />
+        <NeedList />
       </>
     )
   }

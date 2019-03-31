@@ -1,3 +1,10 @@
+/* 
+buttons: linear-gradient(to right, #36D1DC, #5B86E5
+shadow:     box-shadow: 0px 0px 5px -1px rgba(0,0,0,0.32);
+'black': #2c3e50
+gris claro: #ced6e0
+*/
+
 .detail-card {
     display: flex;
     margin: 0px 0 30px 10px;
@@ -17,6 +24,12 @@
     /* left: -30px; */
 
     width: 100%;
+}
+
+.detail-card-info-tags {
+    font-style: italic;
+    color: #b4b9c0 !important;
+    margin: 0 0 0 15px !important;
 }
 
 .detail-card-info h3 {

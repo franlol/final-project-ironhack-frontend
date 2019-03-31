@@ -12,7 +12,7 @@ import Login from './pages/Login';
 import NeedsAdd from './pages/NeedsAdd';
 import Profile from './pages/Profile';
 import NeedDetail from './pages/NeedDetail';
-import AllNeeds from './pages/AllNeeds';
+import SearchResult from './pages/SearchResult';
 
 import './public/styles/app.css';
 
@@ -30,7 +30,8 @@ class App extends Component {
             {/* App routes */}
             <PrivateRoute exact path="/" component={Home} />
             <PrivateRoute exact path="/need/add" component={NeedsAdd} />
-            <PrivateRoute exact path="/need/all" component={AllNeeds} />
+            <PrivateRoute exact path="/search/" component={SearchResult} />
+            {/* <PrivateRoute exact path="/need/filter/:id" component={SearchResult} /> */}
             <PrivateRoute exact path="/need/:id" component={NeedDetail} />
             <PrivateRoute exact path="/need/:id/edit" component={NeedsAdd} />
             <PrivateRoute exact path="/profile" component={Profile} />
