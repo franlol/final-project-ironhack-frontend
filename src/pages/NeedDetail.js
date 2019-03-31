@@ -112,7 +112,7 @@ class NeedDetail extends Component {
             const { need } = this.state;
             return (
                 <>
-                    <p className="detail-card-info-title">Own recipe:</p>
+                    <p className="detail-card-info-title">Own need:</p>
                     <div className="detail-card-details-actions">
                         <Link to={`/need/${need._id}/edit`} className="detail-card-info-value"><FontAwesomeIcon icon="edit" /></Link>
                         <p onClick={this.deleteNeed} className="detail-card-details-actions-trash detail-card-info-value"><FontAwesomeIcon icon="trash-alt" /></p>

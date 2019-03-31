@@ -18,8 +18,9 @@ class Status extends Component {
 
     async componentDidMount() {
         const { status } = this.props.apply;
+
         this.setState({
-            status
+            status: status === undefined ? 'Pending' : status
         });
     }
 
@@ -43,6 +44,8 @@ class Status extends Component {
     render() {
         const { status } = this.state;
         const { isOwnNeed } = this.props;
+
+        const { user, apply } = this.props;
 
         if (isOwnNeed) {
             switch (status) {
@@ -72,9 +75,21 @@ class Status extends Component {
 
                 default:
                     return (
-                        <p></p>
+                        <p className="status-pending-me">{status}</p>
                     );
             }
+        }
+
+        if (user._id === apply.applicant._id) {
+            return (
+                <div className="status-wrap">
+                    {
+                        status === 'Declined' ? <p className="status-declined-me">{status}</p>
+                            : status === 'Accepted' ? <p className="status-accepted-me">{status}</p>
+                                : <p className="status-pending-me">{status}</p>
+                    }
+                </div>
+            )
         }
 
         return (

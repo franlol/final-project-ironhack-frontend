@@ -5,10 +5,12 @@ shadow:     box-shadow: 0px 0px 5px -1px rgba(0,0,0,0.32);
 gris claro: #ced6e0
 */
 
+/* Status of applies without response from need owener view */
+
 .status-wrap {
     display: flex;
     justify-content: flex-end;
-    margin-bottom: 7px; 
+    margin-bottom: 7px;
 }
 
 .status-accept {
@@ -22,6 +24,8 @@ gris claro: #ced6e0
     color: red !important;
     margin: 0 10px 0 14px !important;
 }
+
+/* Status of applies with response, from need owner view */
 
 .status-accepted {
     font-style: italic;
@@ -40,4 +44,24 @@ gris claro: #ced6e0
     font-style: italic;
     color: #ced6e0 !important;
     margin: 0 10px 0 !important;
+}
+
+/* While im waiting response in my apply of a need */
+
+.status-accepted-me {
+    color: green !important;
+    margin: 0 !important;
+    font-style: italic;
+}
+
+.status-declined-me {
+    color: red !important;
+    margin: 0 !important;
+    font-style: italic;
+}
+
+.status-pending-me {
+    color: #2c3e50 !important;
+    margin: 0 !important;
+    font-style: italic;
 }
