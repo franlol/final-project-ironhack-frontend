@@ -27,8 +27,7 @@ class TagInput extends React.Component {
     }
 
     componentDidUpdate() {
-        
-        if (!this.state.isLoaded) this.setState({ isLoaded: true, tags: this.props.tags });
+        if (!this.state.isLoaded) this.setState({ isLoaded: true, tags: this.props.tags !== undefined ? this.props.tags : [] });
     }
 
     async handleDelete(i) {
@@ -44,6 +43,7 @@ class TagInput extends React.Component {
     }
 
     async handleAddition(tag) {
+
         await this.setState(state => ({ tags: [...state.tags, tag] }));
 
         // Aftet delete some tag i send to form, si I can handle tags

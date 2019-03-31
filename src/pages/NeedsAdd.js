@@ -27,8 +27,6 @@ class NeedsAdd extends Component {
 		});
 	}
 
-
-
 	addNeed = async (e, need) => {
 		e.preventDefault();
 		const { _id } = this.props.user;
