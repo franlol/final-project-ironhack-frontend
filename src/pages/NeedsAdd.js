@@ -12,18 +12,19 @@ import '../public/styles/needsAdd.css';
 class NeedsAdd extends Component {
 
 	state = {
-		title: '',
-		rate: '',
-		description: '',
-		tags: [],
-		formError: false,
-		isLoading: true,
+		// title: '',
+		// rate: '',
+		// description: '',
+		// tags: [],
+		// formError: false,
+		// isLoading: true,
 	}
 
 	componentDidMount() {
+		// console.log(this.props.match.path)
 		this.setState({
 			isEdit: this.props.match.path === '/need/:id/edit',
-			isLoading: false,
+			// isLoading: false, 
 		});
 	}
 
