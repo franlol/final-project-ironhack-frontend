@@ -9,7 +9,7 @@ class FormAdd extends Component {
         title: '',
         rate: '',
         description: '',
-        tags: ''
+        tags: []
     }
 
     formInputHandler = (ev) => {

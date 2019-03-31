@@ -12,27 +12,23 @@ class TagInput extends React.Component {
 
     constructor(props) {
         super(props);
-
         this.state = {
-            tags: [
-                // { id: "Electrician", text: "Electrician" },
-                // { id: "Plumber", text: "Plumber" }
-            ],
-
+            isLoaded: false,
+            tags: [],
+            // { id: "Electrician", text: "Electrician" },
             // suggestions: [
             //     { id: 'Room cleaner', text: 'Room cleaner' },
-            //     { id: 'Plumber', text: 'Plumber' },
-            //     { id: 'Electrician', text: 'Austria' },
-            //     { id: 'DJ', text: 'DJ' },
-            //     { id: 'Driver', text: 'Driver' },
-            //     { id: 'Developer', text: 'Developer' },
-            //     { id: 'Designer', text: 'Designer' },
-            //     { id: 'Teacher', text: 'Teacher' }
             // ]
         };
         this.handleDelete = this.handleDelete.bind(this);
         this.handleAddition = this.handleAddition.bind(this);
         this.handleDrag = this.handleDrag.bind(this);
+        // this.componentDidMount = this.componentDidMount.bind(this);
+    }
+
+    componentDidUpdate() {
+        
+        if (!this.state.isLoaded) this.setState({ isLoaded: true, tags: this.props.tags });
     }
 
     async handleDelete(i) {
@@ -44,7 +40,7 @@ class TagInput extends React.Component {
 
         // Aftet delete some tag i send to form, si I can handle tags
         const { updateTags } = this.props;
-        updateTags(this.state.tags)
+        updateTags(this.state.tags);
     }
 
     async handleAddition(tag) {
@@ -52,7 +48,7 @@ class TagInput extends React.Component {
 
         // Aftet delete some tag i send to form, si I can handle tags
         const { updateTags } = this.props;
-        updateTags(this.state.tags)
+        updateTags(this.state.tags);
     }
 
     handleDrag(tag, currPos, newPos) {
@@ -60,7 +56,7 @@ class TagInput extends React.Component {
         const newTags = tags.slice();
 
         const { updateTags } = this.props;
-        updateTags(this.state.tags)
+        updateTags(this.state.tags);
 
         newTags.splice(currPos, 1);
         newTags.splice(newPos, 0, tag);

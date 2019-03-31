@@ -15,6 +15,7 @@ class NeedsAdd extends Component {
 		title: '',
 		rate: '',
 		description: '',
+		tags: [],
 		formError: false,
 		isLoading: true,
 	}
@@ -48,12 +49,13 @@ class NeedsAdd extends Component {
 		}
 	}
 
-	updateNeed = async (e, needId, title, rate, description) => {
+	updateNeed = async (e, needId, need) => {
 		e.preventDefault();
 		const userId = this.props.user._id;
+		const { title, rate, description, tags } = need;
 
 		try {
-			const updatedNeed = await needService.update(userId, { needId, title, rate, description });
+			const updatedNeed = await needService.update(userId, { needId, title, rate, description, tags });
 			this.props.history.push(`/need/${updatedNeed.data._id}`);
 		} catch (err) {
 			//TODO FILL INPUT BORDERS WITH RED
@@ -67,7 +69,7 @@ class NeedsAdd extends Component {
 
 		return (
 			<>
-				<h1>Create need:</h1>
+				{isEdit ? <h1>Edit need:</h1> : <h1>Create need:</h1>}
 				<main className="form-card shadow">
 
 					<div className="form-content">
