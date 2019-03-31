@@ -28,9 +28,11 @@ class NeedsAdd extends Component {
 
 
 
-	addNeed = async (e, title, rate, description) => {
+	addNeed = async (e, need) => {
 		e.preventDefault();
 		const { _id } = this.props.user;
+		const { title, rate, description, tags } = need;
+
 
 		if (!title || !rate || !description) {
 			this.setState({ formError: true });
@@ -39,7 +41,7 @@ class NeedsAdd extends Component {
 		}
 
 		try {
-			const need = await needService.add({ id: _id, title, rate, description });
+			const need = await needService.add({ id: _id, title, rate, description, tags });
 			this.props.history.push(`/need/${need.data.need._id}`);
 		} catch (err) {
 			console.log(err);

@@ -9,45 +9,58 @@ const KeyCodes = {
 const delimiters = [KeyCodes.comma, KeyCodes.enter];
 
 class TagInput extends React.Component {
-    
+
     constructor(props) {
         super(props);
 
         this.state = {
             tags: [
-                { id: "Thailand", text: "Thailand" },
-                { id: "India", text: "India" }
+                // { id: "Electrician", text: "Electrician" },
+                // { id: "Plumber", text: "Plumber" }
             ],
-            suggestions: [
-                { id: 'Room cleaner', text: 'Room cleaner' },
-                { id: 'Plumber', text: 'Plumber' },
-                { id: 'Electrician', text: 'Austria' },
-                { id: 'DJ', text: 'DJ' },
-                { id: 'Driver', text: 'Driver' },
-                { id: 'Developer', text: 'Developer' },
-                { id: 'Designer', text: 'Designer' },
-                { id: 'Teacher', text: 'Teacher' }
-            ]
+
+            // suggestions: [
+            //     { id: 'Room cleaner', text: 'Room cleaner' },
+            //     { id: 'Plumber', text: 'Plumber' },
+            //     { id: 'Electrician', text: 'Austria' },
+            //     { id: 'DJ', text: 'DJ' },
+            //     { id: 'Driver', text: 'Driver' },
+            //     { id: 'Developer', text: 'Developer' },
+            //     { id: 'Designer', text: 'Designer' },
+            //     { id: 'Teacher', text: 'Teacher' }
+            // ]
         };
         this.handleDelete = this.handleDelete.bind(this);
         this.handleAddition = this.handleAddition.bind(this);
         this.handleDrag = this.handleDrag.bind(this);
     }
 
-    handleDelete(i) {
+    async handleDelete(i) {
         const { tags } = this.state;
-        this.setState({
+
+        await this.setState({
             tags: tags.filter((tag, index) => index !== i),
         });
+
+        // Aftet delete some tag i send to form, si I can handle tags
+        const { updateTags } = this.props;
+        updateTags(this.state.tags)
     }
 
-    handleAddition(tag) {
-        this.setState(state => ({ tags: [...state.tags, tag] }));
+    async handleAddition(tag) {
+        await this.setState(state => ({ tags: [...state.tags, tag] }));
+
+        // Aftet delete some tag i send to form, si I can handle tags
+        const { updateTags } = this.props;
+        updateTags(this.state.tags)
     }
 
     handleDrag(tag, currPos, newPos) {
         const tags = [...this.state.tags];
         const newTags = tags.slice();
+
+        const { updateTags } = this.props;
+        updateTags(this.state.tags)
 
         newTags.splice(currPos, 1);
         newTags.splice(newPos, 0, tag);
@@ -57,15 +70,30 @@ class TagInput extends React.Component {
     }
 
     render() {
-        const { tags, suggestions } = this.state;
+        // const { tags, suggestions } = this.state;
+        const { tags } = this.state;
+
         return (
             <div>
                 <ReactTags tags={tags}
-                    suggestions={suggestions}
+                    // suggestio    ns={suggestions}
                     handleDelete={this.handleDelete}
                     handleAddition={this.handleAddition}
                     handleDrag={this.handleDrag}
-                    delimiters={delimiters} />
+                    delimiters={delimiters}
+                    placeholder={"Add category for your need"}
+                    autofocus={false}
+                    classNames={{
+                        tags: 'tagsClass',
+                        tagInput: 'tagInputClass',
+                        tagInputField: 'tagInputFieldClass',
+                        selected: 'selectedClass',
+                        tag: 'tagClass',
+                        remove: 'removeClass',
+                        suggestions: 'suggestionsClass',
+                        activeSuggestion: 'activeSuggestionClass'
+                    }}
+                />
             </div>
         )
     }
