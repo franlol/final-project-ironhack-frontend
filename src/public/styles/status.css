@@ -25,13 +25,14 @@ gris claro: #ced6e0
 
 .status-accepted {
     font-style: italic;
-    color: green;
-    margin: 0;
+    color: #9d9e9e !important;
+    margin: 0 !important;
+    padding-right: 5px;
 }
 
 .status-declined {
     font-style: italic;
-    color: red;
+    color: #9d9e9e !important;
     margin: 0 10px 0 !important;
 }
 

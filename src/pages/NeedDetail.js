@@ -86,6 +86,7 @@ class NeedDetail extends Component {
             const userId = this.props.user._id;
             const needId = this.state.need._id;
 
+            //TODO SEND DATA AS SINGLE OBJECT (BODY)
             await applyService.add(needId, userId, comment);
             this.setState({
                 iApplied: true,

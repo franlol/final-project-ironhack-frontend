@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
+import { withAuth } from '../providers/AuthProvider';
 
 import ApplyService from '../lib/apply-service';
 
 import '../public/styles/status.css'
+
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+library.add(faTimes);
 
 class Status extends Component {
 
@@ -10,36 +16,31 @@ class Status extends Component {
         status: 'Pending'
     }
 
-    updateStatus = async (status) => {
-        console.log(status)
-        const { apply } = this.props;
+    async componentDidMount() {
+        const { status } = this.props.apply;
+        this.setState({
+            status
+        });
+    }
 
+    updateStatus = async (status) => {
+        const { apply, user } = this.props;
+        let updatedStatus;
 
         try {
-            const updated = await ApplyService.updateStatus(apply._id, status);
-            console.log(updated)
+            const updated = await ApplyService.updateStatus(apply._id, { status, userId: user._id, applyId: apply._id });
+            updatedStatus = updated.data.Apply.status;
         } catch (err) {
             console.log(err)
         }
 
         this.setState({
-            status
+            status: updatedStatus
         });
 
     }
 
-    resetStatus = async () => {
-        console.log("reset");
-
-
-        this.resetStatus({
-            status: 'Pending'
-        })
-    }
-
     render() {
-        // console.log(this.state)
-
         const { status } = this.state;
         const { isOwnNeed } = this.props;
 
@@ -58,14 +59,14 @@ class Status extends Component {
                 case 'Accepted':
                     return (
                         <div className="status-wrap">
-                            <p className="status-accepted">Accepted</p>
+                            <p className="status-accepted">Accepted</p><FontAwesomeIcon onClick={() => this.updateStatus('Pending')} icon="times" />
                         </div>
                     );
 
                 case 'Declined':
                     return (
                         <div className="status-wrap">
-                            <p className="status-declined">Declined</p>
+                            <p className="status-declined">Declined</p><FontAwesomeIcon onClick={() => this.updateStatus('Pending')} icon="times" />
                         </div>
                     );
 
@@ -87,4 +88,4 @@ class Status extends Component {
     }
 }
 
-export default Status;
+export default withAuth(Status);
