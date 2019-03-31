@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import TagInput from '../components/taginput';
 
 class FormAdd extends Component {
 
@@ -30,10 +31,10 @@ class FormAdd extends Component {
                 </div>
 
                 <div className="form-input">
-                    <label htmlFor="description">Description:</label>
-                    <textarea value={description} onChange={this.formInputHandler} name="description" id="description" className="shadow" placeholder="Description here.."></textarea>
+                    <label htmlFor="description">About you:</label>
+                    <textarea value={description} onChange={this.formInputHandler} name="description" id="description" className="shadow" placeholder="Something about your experiences.."></textarea>
                 </div>
-
+<TagInput/>
                 <div className="form-input">
                     <button className="shadow" type="submit">Create</button>
                 </div>
