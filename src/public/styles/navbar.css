@@ -1,6 +1,8 @@
 .home-nav {
     position: fixed;
     bottom: 0;
+
+    box-shadow: 0px 0px 25px -18px #000000;
 }
 
 .home-nav-container {

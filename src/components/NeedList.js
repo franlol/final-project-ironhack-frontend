@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import ListCard from './NeedCard';
+import NeedCard from './NeedCard';
 
 import needService from '../lib/need-service';
 
@@ -29,7 +29,7 @@ class NeedList extends Component {
 
     listNeeds = () => {
         const { needs } = this.state;
-        return needs.latest.map((need, i) => <ListCard key={i} need={need} />)
+        return needs.latest.map((need, i) => <NeedCard key={i} need={need} />)
     }
 
     render() {

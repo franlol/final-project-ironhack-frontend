@@ -1,0 +1,76 @@
+/* 
+buttons: linear-gradient(to right, #36D1DC, #5B86E5
+shadow:     box-shadow: 0px 0px 5px -1px rgba(0,0,0,0.32);
+'black': #2c3e50
+gris claro: #ced6e0
+*/
+
+.user-card {
+    display: flex;
+    margin: 15px 0 15px 40px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background: white;
+}
+
+.user-card img {
+    position: relative;
+    top: 15px;
+    left: -30px;
+    min-width: 70px;
+    height: 70px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 13px -1px rgba(0, 0, 0, 0.72);
+}
+
+.user-card-img-faker {
+    height: 151px;
+}
+
+.user-card-info {
+    display: flex;
+    flex-direction: column;
+
+    position: relative;
+    left: -10px;
+
+    width: 100%;
+}
+
+.user-card-info h3 {
+    margin: 15px 0 0 15px;
+}
+
+.user-card-info p {
+    margin: 0 0 20px 15px;
+    color: #ff4b1f;
+    font-size: 14px;
+}
+
+.user-card-info-description {
+    color: #2c3e50 !important;
+}
+
+.user-card-details {
+    display: flex;
+    justify-content: space-between;
+    margin: auto 10px 10px 15px;
+}
+
+.user-card-info .user-card-info-title {
+    margin: 0;
+    color: #b4b9c0;
+    text-align: left;
+}
+
+.user-card-info .user-card-info-value {
+    margin: 5px 0 0 0;
+    ;
+    color: #2c3e50;
+    text-align: left;
+    font-weight: bold;
+}
+
+.user-card-info .user-card-info-value svg {
+    color: #ffdd59;
+}

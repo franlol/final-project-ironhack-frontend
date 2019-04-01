@@ -35,6 +35,11 @@ class NeedService {
         // if OK, 204, no content
     }
 
+    async getPendingNeeds(userId) {
+        const needs = await this.need.get(`/need/all/pending`, { params: { userId } });
+        return needs;
+    }
+
 }
 
 const needService = new NeedService();

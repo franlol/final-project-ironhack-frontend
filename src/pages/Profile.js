@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import { withAuth } from '../providers/AuthProvider';
 
 import UserCard from '../components/UserCard';
-
+import NeedsWaitingResponse from '../components/NeedsWaitingResponse';
 import '../public/styles/profile.css'
-
-// import ApplicantCard from '../components/ApplicantCard';
 
 class Profile extends Component {
     render() {
@@ -18,7 +16,11 @@ class Profile extends Component {
                 <div>
                     <button onClick={logout}>Logout</button>
                 </div>
-                <UserCard user={user}/>
+                <UserCard user={user} />
+                <h4>Some needs wait for answer:</h4>
+                <section className="needlist">
+                    <NeedsWaitingResponse user={user} />
+                </section>
             </>
         );
     }

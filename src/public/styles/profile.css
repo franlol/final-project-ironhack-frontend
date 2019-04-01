@@ -5,6 +5,6 @@ shadow:     box-shadow: 0px 0px 5px -1px rgba(0,0,0,0.32);
 gris claro: #ced6e0
 */
 
-.list-card-info-description {
-    color: #2c3e50 !important;
+.needlist {
+    margin-right: 20px;
 }
