@@ -1,33 +1,42 @@
 import React, { Component } from 'react';
-import needService from '../lib/need-service';
+// import { withAuth } from '../providers/AuthProvider';
+
+// import needService from '../lib/need-service';
 import NeedCard from './NeedCard';
 
 class MyNeeds extends Component {
 
+    // async componentDidMount() {
+    //     try {
+    //         const { user } = this.props;
+    //         const needs = await needService.getAll(user._id)
+
+    //         this.setState({
+    //             needs: needs.data.needs.reverse()
+    //         });
+
+    //     } catch (err) {
+    //         console.log(err)
+    //     }
+    // }
+
     state = {
-        needs: [],
+        needs: []
     }
 
-    async componentDidMount() {
-        try {
-            const { user } = this.props;
-            const needs = await needService.getAll(user._id)
-
-            this.setState({
-                needs: needs.data.needs.reverse()
-            });
-            
-        } catch (err) {
-            console.log(err)
-        }
+    componentDidMount = () => {
+        const { needs } = this.props;
+        console.log(this.props)
+        this.setState({ needs });
     }
 
     listNeeds = () => {
         const { needs } = this.state;
-        return needs.map((need, i) => <NeedCard key={i} need={need} notification={need.waitingNotification}/>)
+        return needs.map((need, i) => <NeedCard key={i} need={need} />);
     }
 
     render() {
+        console.log(this.props)
         return (
             <div>
                 {this.listNeeds()}
