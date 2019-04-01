@@ -13,17 +13,17 @@
     font-weight: bold;
 }
 
-.needcard p {
+/* .needcard p {
     margin: 0 5px 0 auto;
     background: #ff4b1f;
     color: white;
     border-radius: 20px;
-    width: 12px;
-    height: 18px;
+    width: 8px;
+    height: 13px;
     font-size: 12px;
-    padding: 1px 1px 0 6px;
+    padding: 1px 3px 0 4px;
     font-weight: bolder;
-}
+} */
 
 .needcard i {
     color: #2c3e50;

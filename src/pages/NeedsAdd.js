@@ -68,7 +68,7 @@ class NeedsAdd extends Component {
 
 		return (
 			<>
-				{isEdit ? <h1>Edit need:</h1> : <h1>Create need:</h1>}
+				{isEdit ? <h1 className="form-title">Edit need:</h1> : <h1 className="form-title">Create need:</h1>}
 				<main className="form-card shadow">
 
 					<div className="form-content">

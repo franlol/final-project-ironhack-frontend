@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 
-import '../public/styles/needcard.css';
+// import '../public/styles/needcard.css';
 
 import searchService from '../lib/search-service';
 import ListCard from '../components/NeedCard';

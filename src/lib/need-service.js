@@ -19,6 +19,11 @@ class NeedService {
         return latest;
     }
 
+    async getAll(userId) {
+        const needs = await this.need.get(`/need/all`, { params: { userId } });
+        return needs;
+    }
+
     async getById(id) {
         const need = await this.need.get(`/need/${id}`); // get requires body with 'params  ' key
         return need;
@@ -33,11 +38,6 @@ class NeedService {
         const deleted = await this.need.delete(`/need/${needId}`, { data: { needId, userId } }); // delete requires body with 'data' key
         return deleted;
         // if OK, 204, no content
-    }
-
-    async getPendingNeeds(userId) {
-        const needs = await this.need.get(`/need/all/pending`, { params: { userId } });
-        return needs;
     }
 
 }

@@ -41,7 +41,7 @@ class Searchbar extends Component {
 
             <section className="home-search">
                 <form onSubmit={(e) => this.redirect(e)}>
-                    <input className="shadow" type="text" name="search" value={this.state.search} onChange={(e) => this.inputHandler(e)} />
+                    <input placeholder="title, category..." className="shadow" type="text" name="search" value={this.state.search} onChange={(e) => this.inputHandler(e)} />
                     <button className="shadow" type="submit"><FontAwesomeIcon icon="search" /></button>
                     {this.state.redirect !== undefined && this.state.redirect}
                 </form>

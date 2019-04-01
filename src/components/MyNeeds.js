@@ -2,23 +2,21 @@ import React, { Component } from 'react';
 import needService from '../lib/need-service';
 import NeedCard from './NeedCard';
 
-class NeedsWaitingMyResponse extends Component {
+class MyNeeds extends Component {
 
     state = {
-        needs: []
+        needs: [],
     }
 
     async componentDidMount() {
         try {
             const { user } = this.props;
-
-            const needs = await needService.getPendingNeeds(user._id)
-
-            console.log(needs)
+            const needs = await needService.getAll(user._id)
 
             this.setState({
                 needs: needs.data.needs.reverse()
             });
+            
         } catch (err) {
             console.log(err)
         }
@@ -26,7 +24,7 @@ class NeedsWaitingMyResponse extends Component {
 
     listNeeds = () => {
         const { needs } = this.state;
-        return needs.map((need, i) => <NeedCard key={i} need={need} />)
+        return needs.map((need, i) => <NeedCard key={i} need={need} notification={need.waitingNotification}/>)
     }
 
     render() {
@@ -39,4 +37,4 @@ class NeedsWaitingMyResponse extends Component {
 
 }
 
-export default NeedsWaitingMyResponse;
+export default MyNeeds;

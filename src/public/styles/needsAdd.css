@@ -15,6 +15,10 @@ gris claro: #ced6e0
     /* border: 1px dashed red; */
 }
 
+.form-title {
+    margin-left: 10px;
+}
+
 .form-card {
     display: flex;
     margin: 0 0 15px 10px;
