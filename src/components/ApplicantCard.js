@@ -13,7 +13,8 @@ library.add(faStar);
 class ApplicantCard extends Component {
 
     render() {
-        const { applicant, comment } = this.props.apply;
+        console.log(this.props)
+        let { applicant, comment } = this.props.apply;
         const { apply, isOwnNeed } = this.props;
 
         return (
@@ -42,7 +43,6 @@ class ApplicantCard extends Component {
                         <Status apply={apply} isOwnNeed={isOwnNeed} />
                     </div>
                 </article>
-
             </>
         );
     }

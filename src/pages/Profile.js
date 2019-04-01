@@ -1,22 +1,28 @@
 import React, { Component } from 'react';
 import { withAuth } from '../providers/AuthProvider';
 
+import UserCard from '../components/UserCard';
 
-import { Link } from 'react-router-dom';
+import '../public/styles/profile.css'
+
+// import ApplicantCard from '../components/ApplicantCard';
 
 class Profile extends Component {
     render() {
-        const { logout } = this.props;
-console.log(this.props)
+        const { logout, user } = this.props;
+        // console.log(this.props)
+        // console.log(user)
+
         return (
-            <div>
-                <h1>{this.props.user.username}</h1>
-                
-                <Link to="/" >Home</Link>
-                <button onClick={logout}>Logout</button>
-            </div>
+            <>
+                <div>
+                    <button onClick={logout}>Logout</button>
+                </div>
+                <UserCard user={user}/>
+            </>
         );
     }
 }
+// return <ApplicantCard key={i} apply={apply} isOwnNeed={this.state.isOwnNeed}/>;
 
 export default withAuth(Profile);
