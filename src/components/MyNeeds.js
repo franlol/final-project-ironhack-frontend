@@ -25,8 +25,8 @@ class MyNeeds extends Component {
     }
 
     componentDidMount = () => {
-        const { needs } = this.props;
         console.log(this.props)
+        const { needs } = this.props;
         this.setState({ needs });
     }
 
@@ -36,7 +36,7 @@ class MyNeeds extends Component {
     }
 
     render() {
-        console.log(this.props)
+
         return (
             <div>
                 {this.listNeeds()}

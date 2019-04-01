@@ -24,6 +24,11 @@ class ApplyService {
         return updated;
     }
 
+    async needsWhereUsedApplied(userId) {
+        const needs = await this.apply.get(`/apply/applied`, { params: { userId } });
+        return needs;
+    }
+
 }
 
 const applyService = new ApplyService();

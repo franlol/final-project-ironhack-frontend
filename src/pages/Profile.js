@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { withAuth } from '../providers/AuthProvider';
 
-import needService from '../lib/need-service';
+import needService from '../lib/need-service'
+import applyService from '../lib/apply-service';
 
 import UserCard from '../components/UserCard';
 import MyNeeds from '../components/MyNeeds';
@@ -20,15 +21,16 @@ class Profile extends Component {
     async componentDidMount() {
         try {
             const { user } = this.props;
-            
+
             // getting all my needs to pas MyNeeds component
             const myNeeds = await needService.getAll(user._id)
 
             // Getting all needs where I applied, to pass MyNeed component
-
+            const myApplies = await applyService.needsWhereUsedApplied(user._id);
 
             this.setState({
                 myNeeds: myNeeds.data.needs.reverse(),
+                myApplies: myApplies.data.needs.reverse(),
                 isLoaded: true
             });
         } catch (err) {
@@ -47,11 +49,11 @@ class Profile extends Component {
                 <UserCard user={user} />
                 <h4 className="profile-list-title">My needs:</h4>
                 <section className="needlist">
-                    {this.state.isLoaded && <MyNeeds needs={this.state.myNeeds}/>}
+                    {this.state.isLoaded && <MyNeeds needs={this.state.myNeeds} />}
                 </section>
                 <h4 className="profile-list-title">My Applies:</h4>
                 <section className="needlist">
-                    {/* <MyNeeds /> */}
+                    {this.state.isLoaded && <MyNeeds needs={this.state.myApplies} />}
                 </section>
             </>
         );
