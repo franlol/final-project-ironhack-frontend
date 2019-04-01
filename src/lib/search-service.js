@@ -10,7 +10,6 @@ class SearchService {
     }
 
     async search(keyword) {
-        console.log(keyword)
         const response = await this.need.get('/search', { params: { search: keyword } });
         return response;
     }

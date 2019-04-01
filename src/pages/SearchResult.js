@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 
+import '../public/styles/needcard.css';
+
 import searchService from '../lib/search-service';
 import ListCard from '../components/NeedCard';
 
@@ -16,30 +18,30 @@ class SearchResult extends Component {
 
         try {
             const needs = await searchService.search(search);
-            console.log(needs)
-            // const data = needs.data;
 
-            // this.setState({ needs: data, isLoaded: true });
+            const response = needs.data;
+            console.log(response)
+            this.setState({ search, needs: response.needs, isLoaded: true });
 
         } catch (error) {
             console.log(error);
         }
-
-        this.setState({
-            search
-        });
     }
 
     listNeeds = () => {
         const { needs } = this.state;
-        return needs.map((need, i) => <ListCard key={i} need={need} />);
+        if (needs) {
+            return needs.map((need, i) => <ListCard key={i} need={need} />);
+        }
+        return <p>No results found..</p>
     }
 
     render() {
 
         return (
             <section>
-                <h1>asd</h1>
+                <h1>Results:</h1>
+                <h3>{this.state.search}</h3>
                 {this.listNeeds()}
             </section>
         );
