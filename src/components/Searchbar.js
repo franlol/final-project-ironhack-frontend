@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 
-import '../../public/styles/searchbar.css';
+import '../public/styles/searchbar.css';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -15,6 +15,9 @@ class Searchbar extends Component {
     }
 
     inputHandler = (e) => {
+        const { setKeyword } = this.props;
+
+        setKeyword(e.target.value);
         this.setState({
             [e.target.name]: e.target.value
         });

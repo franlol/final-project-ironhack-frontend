@@ -6,27 +6,13 @@ import NeedCard from './NeedCard';
 
 class MyNeeds extends Component {
 
-    // async componentDidMount() {
-    //     try {
-    //         const { user } = this.props;
-    //         const needs = await needService.getAll(user._id)
-
-    //         this.setState({
-    //             needs: needs.data.needs.reverse()
-    //         });
-
-    //     } catch (err) {
-    //         console.log(err)
-    //     }
-    // }
-
     state = {
         needs: []
     }
 
     componentDidMount = () => {
-        console.log(this.props)
         const { needs } = this.props;
+
         this.setState({ needs });
     }
 

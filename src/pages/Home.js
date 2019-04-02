@@ -1,23 +1,27 @@
 import React, { Component } from 'react'
 // import { withAuth } from '../providers/AuthProvider';
 
-import Searchbar from '../components/Home/Searchbar';
-import Categories from '../components/Home/Categories';
+import Searchbar from '../components/Searchbar';
+import Categories from '../components/Categories';
 import NeedList from '../components/NeedList';
 
 class Home extends Component {
 
   state = {
-    needs: [],
+    searchKeyword: ''
+  }
+
+  setKeyword = (keyword) => {
+    this.setState({ searchKeyword: keyword });
   }
 
   render() {
-
+    console.log(this.state)
     return (
       <>
-        <Searchbar />
+        <Searchbar setKeyword={this.setKeyword}/>
         <Categories />
-        <NeedList />
+        <NeedList searchKeyword={this.state.searchKeyword}/>
       </>
     )
   }

@@ -9,14 +9,18 @@ import '../public/styles/needlist.css';
 
 class NeedList extends Component {
 
+    constructor(props) {
+        super(props);
+        console.log(this.props)
+    }
     state = {
         needs: [],
         isLoaded: false,
+        searchKeyword: this.props.searchKeyword,
     }
 
     componentDidMount = async () => {
         try {
-
             const needs = await needService.getLatest();
             const data = needs.data;
 
@@ -27,12 +31,18 @@ class NeedList extends Component {
         }
     }
 
+    // componentDidUpdate = () => {
+    //     const { searchKeyword } = this.props;
+    //     this.setState({ searchKeyword });
+    // }
+
     listNeeds = () => {
         const { needs } = this.state;
         return needs.latest.map((need, i) => <NeedCard key={i} need={need} />)
     }
 
     render() {
+        console.log(this.props.searchKeyword)
         return (
             <>
                 <section className="home-content-more">
@@ -41,6 +51,7 @@ class NeedList extends Component {
                         <Link to="/search">See all</Link>
                     </div>
                     <section>
+                        
                         {this.state.isLoaded && this.listNeeds()}
                         {/* <div><a href="/needdetail.html">Dj for my private friday party</a><FontAwesomeIcon icon="chevron-right" /></div>
                         <div><a href="/needdetail.html">Electrician to fix bathroom lights</a><FontAwesomeIcon icon="chevron-right" /></div>
