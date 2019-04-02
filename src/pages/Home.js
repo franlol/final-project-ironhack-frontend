@@ -8,7 +8,7 @@ import NeedList from '../components/NeedList';
 class Home extends Component {
 
   state = {
-    searchKeyword: ''
+    searchKeyword: '',
   }
 
   setKeyword = (keyword) => {
@@ -21,7 +21,9 @@ class Home extends Component {
       <>
         <Searchbar setKeyword={this.setKeyword}/>
         <Categories />
-        <NeedList searchKeyword={this.state.searchKeyword}/>
+
+        {/* Next component need some refactor. Should be replaced by MyNeeds. I always use MyNeeds except here. */}
+        <NeedList needs={this.state.needs} updateNeeds={this.updateNeeds} searchKeyword={this.state.searchKeyword}/>
       </>
     )
   }

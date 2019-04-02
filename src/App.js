@@ -30,7 +30,7 @@ class App extends Component {
             {/* App routes */}
             <PrivateRoute exact path="/" component={Home} />
             <PrivateRoute exact path="/need/add" component={NeedsAdd} />
-            <PrivateRoute exact path="/search/" component={SearchResult} />
+            <PrivateRoute exact path="/search" component={SearchResult} />
             {/* <PrivateRoute exact path="/need/filter/:id" component={SearchResult} /> */}
             <PrivateRoute exact path="/need/:id" component={NeedDetail} />
             <PrivateRoute exact path="/need/:id/edit" component={NeedsAdd} />

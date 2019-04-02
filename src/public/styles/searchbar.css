@@ -1,16 +1,16 @@
-.home-search {
+.searchbar {
     margin-top: 15px;
     /* border: 1px dashed green; */
 }
 
-.home-search form {
+.searchbar form {
     /* display: flex; */
     /* flex-direction: row; */
 }
 
-.home-search form input {
+.searchbar input {
     border: 0px solid black;
-    width: 80%;
+    width: 93%;
     border-radius: 5px;
     height: 20px;
     padding: 5px;
@@ -19,7 +19,7 @@
     /* box-shadow: 0px 0px 5px -1px rgba(0,0,0,0.32); */
 }
 
-.home-search form button {
+.searchbar form button {
     border: 0px solid red;
     width: 35px;
     height: 35px;

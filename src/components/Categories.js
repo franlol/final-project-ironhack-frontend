@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
 
 import '../public/styles/categories.css';
 
@@ -17,10 +18,21 @@ class Categories extends Component {
                 <section>
                     <div className="shadow home-categories home-category-1">
                         <p><FontAwesomeIcon icon="broom" /> Cleaning</p>
+
+                        {/* <Link to={{
+                            pathname: '/search',
+                            state: {
+                                needs: this.state.needs
+                            }
+                        }}>See all</Link> */}
+
+
                     </div>
-                    <div className="shadow home-categories home-category-2">
-                        <p><FontAwesomeIcon icon="leaf" /> Gardener</p>
-                    </div>
+                    <Link to={{ pathname: '/search', state: { searchKeyword: 'gardener' } }}>
+                        <div className="shadow home-categories home-category-2">
+                            <p><FontAwesomeIcon icon="leaf" /> Gardener</p>
+                        </div>
+                    </Link>
                     <div className="shadow home-categories home-category-3">
                         <p><FontAwesomeIcon icon="plug" /> Plumber</p>
                     </div>

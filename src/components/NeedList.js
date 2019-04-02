@@ -19,7 +19,7 @@ class NeedList extends Component {
     componentDidMount = async () => {
         try {
             const needs = await needService.getAll();
-            const latestNeeds = await needService.getLatest(); // Ordered by date (fomr bd)
+            const latestNeeds = await needService.getLatest(); // Ordered by date (from bd)
 
             this.setState({ needs: needs.data.needs.reverse(), latestNeeds: latestNeeds.data.latest, isLoaded: true });
 
@@ -33,17 +33,16 @@ class NeedList extends Component {
         const { searchKeyword } = this.props;
 
         if (searchKeyword.length === 0) return latestNeeds.map((need, i) => <NeedCard key={i} need={need} />);
-        
+
         // Searchbar filter.
         const filtered = needs.filter(need => {
             //Check if title or description got the text from searchbar
             if (need.title.includes(searchKeyword) || need.description.includes(searchKeyword)) return true;
 
             // if itsn't in the title/desc, check tags. If some tag is equals to searchbar text, return the item.
-            return need.tags.some(tag=> tag.text.includes(searchKeyword));
+            return need.tags.some(tag => tag.text.includes(searchKeyword));
         });
 
-        // console.log(filtered)
         return filtered.map((need, i) => <NeedCard key={i} need={need} />);
     }
 
@@ -54,7 +53,13 @@ class NeedList extends Component {
                 <section className="home-content-more">
                     <div className="title">
                         <h2>Latest:</h2>
-                        <Link to="/search">See all</Link>
+                        <Link to={{
+                            pathname: '/search',
+                            state: {
+                                needs: this.state.needs,
+                                searchKeyword: '',
+                            }
+                        }}>See all</Link>
                     </div>
                     <section>
 
