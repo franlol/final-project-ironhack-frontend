@@ -18,12 +18,13 @@ class Home extends Component {
 
   async componentDidMount() {
     try {
+      // only 1 query to get needs and then i work only with this array
       const response = await needService.getAll();
-      const needs = response.data.needs;
+      const needs = response.data.needs.reverse();
       const latestNeeds = needs.slice(0, 10);
       const filteredNeeds = latestNeeds;
 
-      this.setState({ needs: needs.reverse(), filteredNeeds, latestNeeds: latestNeeds.reverse(), isLoaded: true });
+      this.setState({ needs, filteredNeeds, latestNeeds: latestNeeds, isLoaded: true });
 
     } catch (error) {
       console.log(error);
@@ -59,10 +60,7 @@ class Home extends Component {
       <>
         <Searchbar setKeyword={this.setKeyword} />
         <Categories />
-
-        {/* Next component need some refactor. Should be replaced by MyNeeds. I always use MyNeeds except here. */}
-        {/* <NeedList needs={this.state.needs} updateNeeds={this.updateNeeds} searchKeyword={this.state.searchKeyword} /> */}
-        {this.state.isLoaded && <MyNeeds needs={this.state.filteredNeeds} />}
+        {this.state.isLoaded ? <MyNeeds needs={this.state.filteredNeeds} /> : <p>Loading</p>}
       </>
     )
   }
