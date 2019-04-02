@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-// import { withAuth } from '../providers/AuthProvider';
 
-// import needService from '../lib/need-service';
 import NeedCard from './NeedCard';
 
 class MyNeeds extends Component {
@@ -17,12 +15,12 @@ class MyNeeds extends Component {
     }
 
     listNeeds = () => {
-        const { needs } = this.state;
+        const { needs } = this.props;
         return needs.map((need, i) => <NeedCard key={i} need={need} />);
     }
 
     render() {
-
+        console.log(this.props.needs)
         return (
             <div>
                 {this.listNeeds()}

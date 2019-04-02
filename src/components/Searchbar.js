@@ -17,7 +17,9 @@ class Searchbar extends Component {
     inputHandler = (e) => {
         const { setKeyword } = this.props;
 
+        // Sending value to Home
         setKeyword(e.target.value);
+        
         this.setState({
             [e.target.name]: e.target.value
         });

@@ -28,23 +28,28 @@ class NeedList extends Component {
         }
     }
 
-    listNeeds = () => {
-        const { latestNeeds, needs } = this.state;
-        const { searchKeyword } = this.props;
+    // listNeeds = () => {
+    //     const { latestNeeds, needs } = this.state;
+    //     const { searchKeyword } = this.props;
 
-        if (searchKeyword.length === 0) return latestNeeds.map((need, i) => <NeedCard key={i} need={need} />);
+    //     if (searchKeyword.length === 0) return latestNeeds.map((need, i) => <NeedCard key={i} need={need} />);
 
-        // Searchbar filter.
-        const filtered = needs.filter(need => {
-            //Check if title or description got the text from searchbar
-            if (need.title.includes(searchKeyword) || need.description.includes(searchKeyword)) return true;
+    //     // Searchbar filter.
+    //     const filtered = needs.filter(need => {
+    //         //Check if title or description got the text from searchbar
+    //         if (need.title.includes(searchKeyword) || need.description.includes(searchKeyword)) return true;
 
-            // if itsn't in the title/desc, check tags. If some tag is equals to searchbar text, return the item.
-            return need.tags.some(tag => tag.text.includes(searchKeyword));
-        });
+    //         // if itsn't in the title/desc, check tags. If some tag is equals to searchbar text, return the item.
+    //         return need.tags.some(tag => tag.text.includes(searchKeyword));
+    //     });
 
-        return filtered.map((need, i) => <NeedCard key={i} need={need} />);
-    }
+    //     return filtered.map((need, i) => <NeedCard key={i} need={need} />);
+    // }
+
+    // listNeeds = () => {
+    //     const { needs } = this.state;
+    //     return needs.map((need, i) => <NeedCard key={i} need={need} />);
+    // }
 
     render() {
 
@@ -63,7 +68,7 @@ class NeedList extends Component {
                     </div>
                     <section>
 
-                        {this.state.isLoaded && this.listNeeds()}
+                        {/* {this.state.isLoaded && this.listNeeds()} */}
                         {/* <div><a href="/needdetail.html">Dj for my private friday party</a><FontAwesomeIcon icon="chevron-right" /></div>
                         <div><a href="/needdetail.html">Electrician to fix bathroom lights</a><FontAwesomeIcon icon="chevron-right" /></div>
                         <div><a href="/needdetail.html">UI designer to take away my headaches</a><FontAwesomeIcon icon="chevron-right" /></div>
