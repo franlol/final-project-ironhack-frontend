@@ -23,21 +23,6 @@ class Searchbar extends Component {
         });
     }
 
-    // redirect = (e) => {
-    //     e.preventDefault();
-    //     this.setState({
-    //         redirect: (
-    //             <Redirect
-    //                 to={{
-    //                     pathname: "/search",
-    //                     // search: "?utm=your+face",
-    //                     state: { search: this.state.search }
-    //                 }}
-    //             />
-    //         )
-    //     })
-    // }
-
     render() {
 
         return (
