@@ -23,7 +23,7 @@ class Profile extends Component {
             const { user } = this.props;
 
             // getting all my needs to pas MyNeeds component
-            const myNeeds = await needService.getAll(user._id)
+            const myNeeds = await needService.getAllbyUser(user._id)
 
             // Getting all needs where I applied, to pass MyNeed component
             const myApplies = await applyService.needsWhereUsedApplied(user._id);

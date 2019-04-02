@@ -19,8 +19,13 @@ class NeedService {
         return latest;
     }
 
-    async getAll(userId) {
-        const needs = await this.need.get(`/need/all`, { params: { userId } });
+    async getAllbyUser(userId) {
+        const needs = await this.need.get(`/need/all/${userId}`, { params: { userId } });
+        return needs;
+    }
+
+    async getAll() {
+        const needs = await this.need.get(`/need/all/`);
         return needs;
     }
 

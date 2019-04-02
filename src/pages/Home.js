@@ -16,7 +16,7 @@ class Home extends Component {
   }
 
   render() {
-    console.log(this.state)
+
     return (
       <>
         <Searchbar setKeyword={this.setKeyword}/>

@@ -19,19 +19,14 @@ class ListCard extends Component {
         notifications: 0
     }
 
-    componentDidMount = () => {
-        //If im the owner of the need, i will put the notifications bullet
-        const notifications = this.props.user._id === this.props.need.owner ? this.props.need.waitingNotification : 0;
-        this.setState({ notifications });
-    }
-
     render() {
         const { need } = this.props;
+        const notifications = this.props.user._id === this.props.need.owner ? this.props.need.waitingNotification : 0;
 
         return (
             <div className="needcard">
-                {/* <Link to={`/need/${need._id}`}>{need.title}</Link><Bullet number={this.state.notifications}/><FontAwesomeIcon icon="chevron-right" /> */}
-                <Link to={`/need/${need._id}`}>{need.title}</Link>{this.state.notifications > 0 && <p className="bullet">{this.state.notifications}</p>}<FontAwesomeIcon icon="chevron-right" />
+                <Link to={`/need/${need._id}`}>{need.title}</Link>{notifications > 0 && <p className="bullet">{notifications}</p>}<FontAwesomeIcon icon="chevron-right" />
+
             </div>
         );
     }

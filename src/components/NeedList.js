@@ -9,40 +9,46 @@ import '../public/styles/needlist.css';
 
 class NeedList extends Component {
 
-    constructor(props) {
-        super(props);
-        console.log(this.props)
-    }
     state = {
         needs: [],
+        latestNeeds: [],
+        filtered: [],
         isLoaded: false,
-        searchKeyword: this.props.searchKeyword,
     }
 
     componentDidMount = async () => {
         try {
-            const needs = await needService.getLatest();
-            const data = needs.data;
+            const needs = await needService.getAll();
+            const latestNeeds = await needService.getLatest(); // Ordered by date (fomr bd)
 
-            this.setState({ needs: data, isLoaded: true });
+            this.setState({ needs: needs.data.needs.reverse(), latestNeeds: latestNeeds.data.latest, isLoaded: true });
 
         } catch (error) {
             console.log(error);
         }
     }
 
-    // componentDidUpdate = () => {
-    //     const { searchKeyword } = this.props;
-    //     this.setState({ searchKeyword });
-    // }
-
     listNeeds = () => {
-        const { needs } = this.state;
-        return needs.latest.map((need, i) => <NeedCard key={i} need={need} />)
+        const { latestNeeds, needs } = this.state;
+        const { searchKeyword } = this.props;
+
+        if (searchKeyword.length === 0) return latestNeeds.map((need, i) => <NeedCard key={i} need={need} />);
+        
+        // Searchbar filter.
+        const filtered = needs.filter(need => {
+            //Check if title or description got the text from searchbar
+            if (need.title.includes(searchKeyword) || need.description.includes(searchKeyword)) return true;
+
+            // if itsn't in the title/desc, check tags. If some tag is equals to searchbar text, return the item.
+            return need.tags.some(tag=> tag.text.includes(searchKeyword));
+        });
+
+        // console.log(filtered)
+        return filtered.map((need, i) => <NeedCard key={i} need={need} />);
     }
 
     render() {
-        console.log(this.props.searchKeyword)
+
         return (
             <>
                 <section className="home-content-more">
@@ -51,7 +57,7 @@ class NeedList extends Component {
                         <Link to="/search">See all</Link>
                     </div>
                     <section>
-                        
+
                         {this.state.isLoaded && this.listNeeds()}
                         {/* <div><a href="/needdetail.html">Dj for my private friday party</a><FontAwesomeIcon icon="chevron-right" /></div>
                         <div><a href="/needdetail.html">Electrician to fix bathroom lights</a><FontAwesomeIcon icon="chevron-right" /></div>
