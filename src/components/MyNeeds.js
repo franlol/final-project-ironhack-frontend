@@ -20,7 +20,7 @@ class MyNeeds extends Component {
     }
 
     render() {
-        console.log(this.props.needs)
+
         return (
             <div>
                 {this.listNeeds()}

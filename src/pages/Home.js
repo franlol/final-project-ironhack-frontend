@@ -7,6 +7,8 @@ import Categories from '../components/Categories';
 // import NeedList from '../components/NeedList';
 import MyNeeds from '../components/MyNeeds';
 
+import '../public/styles/home.css';
+
 class Home extends Component {
 
   state = {
@@ -33,9 +35,10 @@ class Home extends Component {
 
   filter = (str) => {
     const { needs } = this.state;
+
     // Searchbar filter.
     const filtered = needs.filter(need => {
-      //Check if title or description got the text from searchbar
+      //Check if title or description is the same that the text from searchbar
       if (need.title.includes(str) || need.description.includes(str)) return true;
 
       // if itsn't in the title/desc, check tags. If some tag is equals to searchbar text, return the item.
@@ -46,11 +49,10 @@ class Home extends Component {
 
   // callback to recive the input data in searchbar
   setKeyword = (keyword) => {
-    
     if (keyword !== '') {
       this.filter(keyword);
     } else {
-      this.setState({ filteredNeeds: this.state.needs });
+      this.setState({ filteredNeeds: this.state.latestNeeds });
     }
   }
 
@@ -60,7 +62,11 @@ class Home extends Component {
       <>
         <Searchbar setKeyword={this.setKeyword} />
         <Categories />
-        {this.state.isLoaded ? <MyNeeds needs={this.state.filteredNeeds} /> : <p>Loading</p>}
+        <h1 className="home-latest">Latest:</h1>
+        <section className="home-needlist">
+          {/* MyNeeds component is used in several plces */}
+          {this.state.isLoaded ? <MyNeeds needs={this.state.filteredNeeds} /> : <p>Loading</p>}
+        </section>
       </>
     )
   }
