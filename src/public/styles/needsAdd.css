@@ -71,6 +71,8 @@ gris claro: #ced6e0
     background: linear-gradient(to right, #36D1DC, #5B86E5);
     color: white;
     border-radius: 25px;
+    display: block !important;
+    margin: 0 auto 20px !important;
 }
 
 .tagsClass {
