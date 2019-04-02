@@ -5,13 +5,17 @@ import NeedCard from './NeedCard';
 class MyNeeds extends Component {
 
     state = {
-        needs: []
+        needs: [],
+        isLoaded: false,
     }
 
     componentDidMount = () => {
         const { needs } = this.props;
 
-        this.setState({ needs });
+        this.setState({
+            needs,
+            isLoaded: true
+        });
     }
 
     listNeeds = () => {
@@ -23,7 +27,7 @@ class MyNeeds extends Component {
 
         return (
             <div>
-                {this.listNeeds()}
+                {this.state.isLoaded ? this.listNeeds() : <p>Loading..</p>}
             </div>
         );
     }

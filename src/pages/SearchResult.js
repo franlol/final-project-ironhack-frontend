@@ -1,59 +1,44 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 
-import '../public/styles/searchresult.css';
+import MyNeeds from '../components/MyNeeds';
 
-// import searchService from '../lib/search-service';
-// import ListCard from '../components/NeedCard';
+import '../public/styles/searchresult.css';
 
 class SearchResult extends Component {
 
     state = {
-        searchKeyword: '',
-        needs: []
+        needs: [],
+        keyword: '',
+        isLoaded: false,
     }
 
     async componentDidMount() {
-        const needs = this.props.location.state !== undefined ? this.props.location.state.needs : '';
-        const { searchKeyword } = this.props.searchKeyword === undefined ? '' : this.props;
+        // only if you go by url  the location will be undefined
+        if (this.props.location.state !== undefined) {
+            const { needs, keyword } = this.props.location.state;
 
-        if (searchKeyword !== undefined) {
-            // Array filter.
-            const filtered = needs.filter(need => {
-                //Check if title or description got the text from searchbar
-                if (need.title.includes(searchKeyword) || need.description.includes(searchKeyword)) return true;
-    
-                // if itsn't in the title/desc, check tags. If some tag is equals to searchbar text, return the item.
-                return need.tags.some(tag => tag.text.includes(searchKeyword));
+            this.setState({
+                needs,
+                keyword,
+                isLoaded: true
             });
-            console.log(filtered)
         } else {
-            console.log(needs)
+            this.setState({
+                needs: [],
+                keyword: 'Bad way..',
+                isLoaded: true
+            });
         }
-        
-
-
-        this.setState({
-            needs
-        });
     }
-
-    // listNeeds = () => {
-    //     const { needs } = this.state;
-
-    //     if (needs) {
-    //         return needs.map((need, i) => <ListCard key={i} need={need} />);
-    //     }
-    //     return <p>No results found..</p>
-    // }
 
     render() {
 
         return (
-            <section>
+            <section className="searchresult-section">
                 <h1>Results:</h1>
-                <h3>{this.state.searchKeyword}</h3>
-                {/* {this.listNeeds()} */}
+                <h3>{this.state.keyword}</h3>
+                {this.state.isLoaded ? <MyNeeds needs={this.state.needs} /> : <p>Loading...</p>}
             </section>
         );
     }

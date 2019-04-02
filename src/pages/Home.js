@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import { Link, Redirect } from 'react-router-dom';
+
 import needService from '../lib/need-service';
 
 import Searchbar from '../components/Searchbar';
@@ -33,6 +35,29 @@ class Home extends Component {
     }
   }
 
+  // filter = (str) => {
+  //   const { needs } = this.state;
+
+  //   // Searchbar filter.
+  //   const filtered = needs.filter(need => {
+  //     //Check if title or description is the same that the text from searchbar
+  //     if (need.title.includes(str) || need.description.includes(str)) return true;
+
+  //     // if itsn't in the title/desc, check tags. If some tag is equals to searchbar text, return the item.
+  //     return need.tags.some(tag => tag.text.includes(str));
+  //   });
+  //   this.setState({ filteredNeeds: filtered });
+  // }
+
+  // // callback to recive the input data in searchbar
+  // setKeyword = (keyword) => {
+  //   if (keyword !== '') {
+  //     this.filter(keyword);
+  //   } else {
+  //     this.setState({ filteredNeeds: this.state.latestNeeds });
+  //   }
+  // }
+
   filter = (str) => {
     const { needs } = this.state;
 
@@ -44,16 +69,26 @@ class Home extends Component {
       // if itsn't in the title/desc, check tags. If some tag is equals to searchbar text, return the item.
       return need.tags.some(tag => tag.text.includes(str));
     });
-    this.setState({ filteredNeeds: filtered });
+    return filtered;
   }
 
   // callback to recive the input data in searchbar
   setKeyword = (keyword) => {
     if (keyword !== '') {
-      this.filter(keyword);
+      this.setState({ filteredNeeds: this.filter(keyword) })
+      // this.filter(keyword);
     } else {
       this.setState({ filteredNeeds: this.state.latestNeeds });
     }
+  }
+  // Callbacks to 
+  showResults = (keyword) => {
+    const filtered = this.filter(keyword);
+
+    this.props.history.push({
+      pathname: '/search',
+      state: { needs: filtered, keyword }
+    });
   }
 
   render() {
@@ -61,8 +96,11 @@ class Home extends Component {
     return (
       <>
         <Searchbar setKeyword={this.setKeyword} />
-        <Categories />
-        <h1 className="home-latest">Latest:</h1>
+        <Categories showResults={this.showResults} />
+        <div className="home-latest-title">
+          <h2 className="title">Latest:</h2>
+          <Link to={{ pathname: '/search', state: { needs: this.state.needs, keyword: 'All needs:' } }}>See all</Link>
+        </div>
         <section className="home-needlist">
           {/* MyNeeds component is used in several plces */}
           {this.state.isLoaded ? <MyNeeds needs={this.state.filteredNeeds} /> : <p>Loading</p>}

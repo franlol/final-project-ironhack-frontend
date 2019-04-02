@@ -12,31 +12,22 @@ library.add(faBroom, faLeaf, faPlug, faUserGraduate);
 class Categories extends Component {
 
     render() {
+        const { showResults } = this.props;
+
         return (
             <main className="home-content">
                 {/* <h1>Categories:</h1> */}
                 <section>
-                    <div className="shadow home-categories home-category-1">
+                    <div onClick={() => showResults("cleaning")} className="shadow home-categories home-category-1">
                         <p><FontAwesomeIcon icon="broom" /> Cleaning</p>
-
-                        {/* <Link to={{
-                            pathname: '/search',
-                            state: {
-                                needs: this.state.needs
-                            }
-                        }}>See all</Link> */}
-
-
                     </div>
-                    <Link to={{ pathname: '/search', state: { searchKeyword: 'gardener' } }}>
-                        <div className="shadow home-categories home-category-2">
-                            <p><FontAwesomeIcon icon="leaf" /> Gardener</p>
-                        </div>
-                    </Link>
-                    <div className="shadow home-categories home-category-3">
+                    <div onClick={() => showResults("gardener")} className="shadow home-categories home-category-2">
+                        <p><FontAwesomeIcon icon="leaf" /> Gardener</p>
+                    </div>
+                    <div onClick={() => showResults("plumber")} className="shadow home-categories home-category-3">
                         <p><FontAwesomeIcon icon="plug" /> Plumber</p>
                     </div>
-                    <div className="shadow home-categories home-category-4">
+                    <div onClick={() => showResults("teacher")} className="shadow home-categories home-category-4">
                         <p><FontAwesomeIcon icon="user-graduate" /> Teacher</p>
                     </div>
                 </section>
