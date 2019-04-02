@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { withAuth } from '../providers/AuthProvider';
 
-import { MDBInput, MDBModalFooter } from "mdbreact";
+import { Link } from 'react-router-dom';
 
 import '../public/styles/login.css';
-// import '../public/styles/login.css';
 
 class Login extends Component {
 
@@ -29,24 +28,34 @@ class Login extends Component {
 
   render() {
     const { username, password } = this.state;
+
     return (
       <main className="login">
-        <h1>Login</h1>
-        <form onSubmit={this.handleFormSubmit}>
-          <MDBInput type="text" name="username" value={username} label="Username" outline onChange={this.handleChange} />
-          <MDBInput type="password" name="password" value={password} label="Password" outline onChange={this.handleChange} />
-          <div className="text-center mt-5">
+        <h1 className="login-title">Serv-Seeker</h1>
+        <form className="login-form" onSubmit={this.handleFormSubmit}>
+
+          <div className="login-field">
+            <label htmlFor="login-username">Username:</label>
+            <input required id="login-username" type="text" name="username" value={username} onChange={this.handleChange} />
+          </div>
+
+          <div className="login-field">
+            <label htmlFor="login-password">Password:</label>
+            <input required id="login-password" type="password" name="password" value={password} label="Password" onChange={this.handleChange} />
+          </div>
+
+          <div className="login-button">
             <input type="submit" value="Login" />
           </div>
+
         </form>
-        <MDBModalFooter className="mt-5">
-          <div className="font-weight-light">
-            <p>Not a member? <a href="/signup">Sign up</a></p>
-          </div>
-        </MDBModalFooter>
+        <div className="login-toggle">
+          <p>Not a member? <Link to="/signup">Sign up</Link></p>
+        </div>
       </main>
     )
   }
+
 }
 
 export default withAuth(Login);

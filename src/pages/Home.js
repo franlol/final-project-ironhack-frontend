@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import needService from '../lib/need-service';
 
 import Searchbar from '../components/Searchbar';
 import Categories from '../components/Categories';
-// import NeedList from '../components/NeedList';
 import MyNeeds from '../components/MyNeeds';
 
 import '../public/styles/home.css';
@@ -34,29 +33,6 @@ class Home extends Component {
       console.log(error);
     }
   }
-
-  // filter = (str) => {
-  //   const { needs } = this.state;
-
-  //   // Searchbar filter.
-  //   const filtered = needs.filter(need => {
-  //     //Check if title or description is the same that the text from searchbar
-  //     if (need.title.includes(str) || need.description.includes(str)) return true;
-
-  //     // if itsn't in the title/desc, check tags. If some tag is equals to searchbar text, return the item.
-  //     return need.tags.some(tag => tag.text.includes(str));
-  //   });
-  //   this.setState({ filteredNeeds: filtered });
-  // }
-
-  // // callback to recive the input data in searchbar
-  // setKeyword = (keyword) => {
-  //   if (keyword !== '') {
-  //     this.filter(keyword);
-  //   } else {
-  //     this.setState({ filteredNeeds: this.state.latestNeeds });
-  //   }
-  // }
 
   filter = (str) => {
     const { needs } = this.state;
