@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 
 import TagInput from '../components/taginput';
+import Error from '../components/error';
 
 import needService from '../lib/need-service';
 
@@ -44,7 +45,7 @@ class FormEdit extends Component {
     }
 
     render() {
-        const { updateNeed } = this.props;
+        const { updateNeed, error, errors } = this.props;
         const { id } = this.props.match.params;
         const { title, rate, tags, description } = this.state;
 
@@ -70,6 +71,7 @@ class FormEdit extends Component {
                     <label htmlFor="description">About need:</label>
                     <textarea value={description} onChange={this.formInputHandler} name="description" id="description" className="shadow" placeholder="Something about your need.."></textarea>
                 </div>
+                {error && <Error errors={errors} />}
                 <div className="form-input">
                     <button className="shadow" type="submit">Edit</button>
                 </div>

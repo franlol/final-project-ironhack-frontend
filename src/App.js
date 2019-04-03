@@ -13,6 +13,7 @@ import NeedsAdd from './pages/NeedsAdd';
 import Profile from './pages/Profile';
 import NeedDetail from './pages/NeedDetail';
 import SearchResult from './pages/SearchResult';
+import ProfileEdit from './components/ProfileEdit';
 
 import './public/styles/app.css';
 
@@ -34,7 +35,7 @@ class App extends Component {
             <PrivateRoute exact path="/need/:id" component={NeedDetail} />
             <PrivateRoute exact path="/need/:id/edit" component={NeedsAdd} />
             <PrivateRoute exact path="/profile" component={Profile} />
-
+            <PrivateRoute exact path="/profile/edit" component={ProfileEdit} />
             {/* Auth routes */}
             <AnonRoute path="/signup" component={Signup} />
             <AnonRoute path="/login" component={Login} />

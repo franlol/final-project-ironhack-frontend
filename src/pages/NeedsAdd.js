@@ -12,12 +12,8 @@ import '../public/styles/needsAdd.css';
 class NeedsAdd extends Component {
 
 	state = {
-		// title: '',
-		// rate: '',
-		// description: '',
-		// tags: [],
-		// formError: false,
-		// isLoading: true,
+		error: false,
+		errors: [],
 	}
 
 	componentDidMount() {
@@ -35,8 +31,11 @@ class NeedsAdd extends Component {
 
 
 		if (!title || !rate || !description) {
-			this.setState({ formError: true });
-			console.log("missing data")
+			console.log("missing data");
+			this.setState({
+				error: true,
+				errors: [...this.state.errors, 'Missing data']
+			})
 			return;
 		}
 
@@ -72,7 +71,7 @@ class NeedsAdd extends Component {
 				<main className="form-card shadow">
 
 					<div className="form-content">
-						{isEdit && <FormEdit updateNeed={this.updateNeed} />}
+						{isEdit && <FormEdit error={this.state.error} errors={this.state.errors} updateNeed={this.updateNeed} />}
 						{!isEdit && <FormAdd addNeed={this.addNeed} />}
 					</div>
 

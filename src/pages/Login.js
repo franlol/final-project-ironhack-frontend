@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { withAuth } from '../providers/AuthProvider';
-
 import { Link } from 'react-router-dom';
+
+import Error from '../components/error';
 
 import '../public/styles/login.css';
 
@@ -10,15 +11,38 @@ class Login extends Component {
   state = {
     username: "",
     password: "",
+    error: false,
+    errors: [],
   }
 
-  handleFormSubmit = (event) => {
-    event.preventDefault();
-    const { username, password } = this.state
+  // handleFormSubmit = (event) => {
+  //   event.preventDefault();
+  //   const { username, password } = this.state
 
-    this.props.login({ username, password })
-      .then(() => { })
-      .catch(error => console.log(error))
+  //   this.props.login({ username, password })
+  //     .then(() => { })
+  //     .catch(error => console.log(error))
+  // }
+
+  handleFormSubmit = async (event) => {
+    event.preventDefault();
+    const { username, password } = this.state;
+
+    try {
+      const loggin = await this.props.login({ username, password });
+      // if (loggin === undefined) {
+      //   return;
+      // }
+      if (loggin !== undefined && loggin.response.data.error === true) {
+        console.log("error")
+        this.setState({
+          error: true,
+          errors: [...this.state.errors, 'User or pw incorrect.'],
+        });
+      }
+    } catch (err) {
+      console.log("ERROR", err)
+    }
   }
 
   handleChange = (event) => {
@@ -42,6 +66,10 @@ class Login extends Component {
           <div className="login-field">
             <label htmlFor="login-password">Password:</label>
             <input required id="login-password" type="password" name="password" value={password} label="Password" onChange={this.handleChange} />
+          </div>
+
+          <div className="login-field">
+          {this.state.error && <Error errors={this.state.errors}/>}
           </div>
 
           <div className="login-button">
