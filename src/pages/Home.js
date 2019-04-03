@@ -21,7 +21,20 @@ class Home extends Component {
     socket: io(process.env.REACT_APP_SOCKET_IO),
   }
 
-  async componentDidMount() {
+  componentDidMount() {
+    // Adding new listener to socket
+    this.state.socket.on("NEW_NEED", () => {
+      this.updateState();
+    });
+
+    this.updateState();
+  }
+
+  componentWillUnmount() {
+    this.state.socket.disconnect();
+  }
+
+  updateState = async () => {
     try {
       // only 1 query to get needs and then i work only with this array
       let response = await needService.getAll();
@@ -29,29 +42,11 @@ class Home extends Component {
       let latestNeeds = needs.slice(0, 10);
       let filteredNeeds = latestNeeds;
 
-      //socket
-      // let socket = io('http://localhost:5000');
-      // let socket = io("https://ironhack-final-project-api.herokuapp.com/");
-      this.state.socket.on("NEW_NEED", async () => {
-        response = await needService.getAll();
-        needs = response.data.needs.reverse();
-        latestNeeds = needs.slice(0, 10);
-        filteredNeeds = latestNeeds;
-
-        this.setState({ needs, filteredNeeds, latestNeeds: latestNeeds, isLoaded: true });
-
-      })
-
       this.setState({ needs, filteredNeeds, latestNeeds: latestNeeds, isLoaded: true });
 
     } catch (error) {
       console.log(error);
     }
-
-  }
-
-  componentWillUnmount() {
-    this.state.socket.disconnect();
   }
 
   filter = (str) => {
@@ -77,7 +72,7 @@ class Home extends Component {
       this.setState({ filteredNeeds: this.state.latestNeeds });
     }
   }
-  
+
   // Callbacks to 
   showResults = (keyword) => {
     const filtered = this.filter(keyword);
