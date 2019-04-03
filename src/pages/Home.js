@@ -23,7 +23,7 @@ class Home extends Component {
 
   componentDidMount() {
     // Adding new listener to socket
-    this.state.socket.on("NEW_NEED", () => {
+    this.state.socket.on("HOME_NEW_NEED", () => {
       this.updateState();
     });
 
@@ -73,7 +73,7 @@ class Home extends Component {
     }
   }
 
-  // Callbacks to 
+  // Callbacks
   showResults = (keyword) => {
     const filtered = this.filter(keyword);
 
@@ -94,7 +94,7 @@ class Home extends Component {
           <Link to={{ pathname: '/search', state: { needs: this.state.needs, keyword: 'All needs:' } }}>See all</Link>
         </div>
         <section className="home-needlist">
-          {/* MyNeeds component is used in several plces */}
+          {/* MyNeeds component is used in several plces - Just pass needlist and callback to update*/}
           {this.state.isLoaded ? <MyNeeds needs={this.state.filteredNeeds} /> : <p>Loading</p>}
         </section>
       </>

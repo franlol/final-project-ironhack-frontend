@@ -24,7 +24,6 @@ class MyNeeds extends Component {
     }
 
     render() {
-
         return (
             <div>
                 {this.state.isLoaded ? this.listNeeds() : <p>Loading..</p>}
