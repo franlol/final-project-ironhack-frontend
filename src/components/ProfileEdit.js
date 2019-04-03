@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+
 import { withAuth } from '../providers/AuthProvider';
+import {withRouter} from 'react-router';
 
 import authService from '../lib/auth-service';
 
@@ -77,8 +79,9 @@ class ProfileEdit extends Component {
             rate: this.state.rate,
         }
         try {
-            const updated = await authService.edit(user);
-            // console.log(updated.response.data)
+            const response = await authService.edit(user);
+            this.props.setUser(response.data.user)
+            this.props.history.push('/profile');
         } catch (err) {
             console.log(err)
         }
@@ -124,7 +127,7 @@ class ProfileEdit extends Component {
 
                                     <div className="form-input">
                                         <label htmlFor="title">Description:</label>
-                                        <input value={description} onChange={this.formInputHandler} className="shadow" id="description" type="text" name="description" />
+                                        <textarea value={description} onChange={this.formInputHandler} className="shadow" id="description" type="text" name="description"></textarea>
                                     </div>
 
                                     <div className="form-input">
@@ -154,4 +157,4 @@ class ProfileEdit extends Component {
 
 }
 
-export default withAuth(ProfileEdit);
+export default withRouter(withAuth(ProfileEdit));
