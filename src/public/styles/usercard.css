@@ -30,15 +30,38 @@ gris claro: #ced6e0
 .user-card-info {
     display: flex;
     flex-direction: column;
-
     position: relative;
     left: -10px;
-
     width: 100%;
 }
 
-.user-card-info h3 {
-    margin: 15px 0 0 15px;
+.user-edit {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.user-edit h3 {
+    margin: 18px 0 0 25px !important;
+    color: #2c3e50 !important;
+}
+
+.user-edit .user-action-edit {
+    margin-left: auto !important;
+    color: #2c3e50;
+    font-size: 14px;
+}
+
+.user-edit .user-action-edit svg {
+    padding-bottom: 1px;
+    padding-right: 1px;
+}
+
+.user-edit .user-action-logout {
+    border: 0px solid red;
+    background: transparent;
+    font-size: 15px;
+    color: inherit;
 }
 
 .user-card-info p {

@@ -43,10 +43,10 @@ class Profile extends Component {
 
         return (
             <>
-                <div>
+                {/* <div>
                     <button onClick={logout}>Logout</button>
-                </div>
-                <UserCard user={user} />
+                </div> */}
+                <UserCard user={user} logout={logout}/>
                 <h4 className="profile-list-title">My needs:</h4>
                 <section className="needlist">
                     {this.state.isLoaded && <MyNeeds needs={this.state.myNeeds} />}
@@ -59,6 +59,5 @@ class Profile extends Component {
         );
     }
 }
-// return <ApplicantCard key={i} apply={apply} isOwnNeed={this.state.isOwnNeed}/>;
 
 export default withAuth(Profile);

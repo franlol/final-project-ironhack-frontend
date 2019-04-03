@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { faStar, faEdit, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 import '../public/styles/usercard.css'
 
-library.add(faStar);
+library.add(faStar, faEdit, faSignOutAlt);
 
 class UserCard extends Component {
 
     render() {
-        const { user } = this.props;
+        const { user, logout } = this.props;
 
         return (
             <article className="user-card shadow">
@@ -19,7 +20,13 @@ class UserCard extends Component {
 
                 <div className="user-card-img-faker"></div>
                 <div className="user-card-info">
-                    <h3>{user.username}</h3>
+                    <div className="user-card-info">
+                        <div className="user-edit">
+                            <h3 className="user-card-info-title">{user.username}</h3>
+                            <Link className="user-action-edit" to="/profile/edit"><FontAwesomeIcon icon="edit" /></Link>
+                            <button onClick={logout} className="user-action-logout"><FontAwesomeIcon icon="sign-out-alt" /></button>
+                        </div>
+                    </div>
                     <p>{user.profession}</p>
                     <p className="user-card-info-description">{user.description}</p>
                     <div className="user-card-details">

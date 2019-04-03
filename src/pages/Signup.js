@@ -17,8 +17,9 @@ class Signup extends Component {
     event.preventDefault();
     const username = this.state.username;
     const password = this.state.password;
+    const profession = this.state.profession;
 
-    this.props.signup({ username, password })
+    this.props.signup({ username, password, profession })
       // .then(() => {
       //   this.setState({
       //       username: "",
