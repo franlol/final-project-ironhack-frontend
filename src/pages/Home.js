@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import io from 'socket.io-client';
 
 import { Link } from 'react-router-dom';
 
@@ -21,12 +22,19 @@ class Home extends Component {
 
   async componentDidMount() {
     try {
+
+      // let socket = io('http://localhost:5000');
+      let socket = io("https://ironhack-final-project-api.herokuapp.com/");
+      socket.on("NEW_NEED", () => {
+        console.log("recivido")
+      })
+
       // only 1 query to get needs and then i work only with this array
       const response = await needService.getAll();
       const needs = response.data.needs.reverse();
       const latestNeeds = needs.slice(0, 10);
       const filteredNeeds = latestNeeds;
-
+      
       this.setState({ needs, filteredNeeds, latestNeeds: latestNeeds, isLoaded: true });
 
     } catch (error) {

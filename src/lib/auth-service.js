@@ -29,6 +29,12 @@ class AuthService {
     return this.auth.get('/auth/me')
       .then(response => response.data)
   }
+
+  async edit(user) {
+    const updatedUser = await this.auth.put(`/auth/${user._id}`, { user });
+    return updatedUser;
+  }
+
 }
 
 const authService = new AuthService();

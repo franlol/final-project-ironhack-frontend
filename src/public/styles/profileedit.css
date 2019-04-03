@@ -1,3 +1,25 @@
+.profile-edit-title {
+    margin: 20px 0 0;
+}
+
+.profile-edit-title-user {
+    margin: 15px 0 0;
+}
+
 .form-card {
     margin-top: 30px;
+}
+
+.profile-edit-title-box {
+    display: flex;
+}
+
+.profile-edit-form-img {
+    top: -30px !important;
+    width: 100px !important;
+    height: 100px !important;
+}
+
+.form-input label {
+    margin-left: 0 !important;
 }

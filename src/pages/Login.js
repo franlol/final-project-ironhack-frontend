@@ -30,11 +30,9 @@ class Login extends Component {
 
     try {
       const loggin = await this.props.login({ username, password });
-      // if (loggin === undefined) {
-      //   return;
-      // }
+      
       if (loggin !== undefined && loggin.response.data.error === true) {
-        console.log("error")
+        
         this.setState({
           error: true,
           errors: [...this.state.errors, 'User or pw incorrect.'],

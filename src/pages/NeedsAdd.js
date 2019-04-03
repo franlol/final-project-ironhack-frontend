@@ -29,7 +29,6 @@ class NeedsAdd extends Component {
 		const { _id } = this.props.user;
 		const { title, rate, description, tags } = need;
 
-
 		if (!title || !rate || !description) {
 			console.log("missing data");
 			this.setState({
