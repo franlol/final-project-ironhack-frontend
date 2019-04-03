@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import Comment from './Comment';
 import Status from './Status';
@@ -13,7 +14,6 @@ library.add(faStar);
 class ApplicantCard extends Component {
 
     render() {
-        console.log(this.props)
         let { applicant, comment } = this.props.apply;
         const { apply, isOwnNeed } = this.props;
 
@@ -23,7 +23,7 @@ class ApplicantCard extends Component {
                     <img src={applicant.photo} alt={applicant.username} />
                     <div className="list-card-img-faker"></div>
                     <div className="list-card-info">
-                        <h3>{applicant.username}</h3>
+                        <h3><Link className="list-card-info-h3-link" to={`/profile/${applicant._id}`}>{applicant.username}</Link></h3>
                         <p>{applicant.profession}</p>
                         <div className="list-card-details">
                             <div>
@@ -32,7 +32,7 @@ class ApplicantCard extends Component {
                             </div>
                             <div>
                                 <p className="list-card-info-title">Jobs:</p>
-                                <p className="list-card-info-value">{applicant.jobsDone.length}</p>
+                                <p className="list-card-info-value">{applicant.jobsDone}</p>
                             </div>
                             <div>
                                 <p className="list-card-info-title">Rate:</p>
@@ -40,7 +40,7 @@ class ApplicantCard extends Component {
                             </div>
                         </div>
                         <Comment comment={comment} />
-                        <Status apply={apply} isOwnNeed={isOwnNeed} />
+                        <Status applicant={applicant} apply={apply} isOwnNeed={isOwnNeed} />
                     </div>
                 </article>
             </>

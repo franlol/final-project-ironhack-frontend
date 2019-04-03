@@ -34,6 +34,11 @@
     margin: 15px 0 0 15px;
 }
 
+.list-card-info-h3-link {
+    text-decoration: none;
+    color: inherit;
+}
+
 .list-card-info p {
     margin: 0 0 20px 15px;
     color: #ff4b1f;

@@ -43,9 +43,7 @@ class Status extends Component {
 
     render() {
         const { status } = this.state;
-        const { isOwnNeed } = this.props;
-
-        const { user, apply } = this.props;
+        const { isOwnNeed, user, apply, applicant } = this.props;
 
         if (isOwnNeed) {
             switch (status) {
@@ -62,7 +60,7 @@ class Status extends Component {
                 case 'Accepted':
                     return (
                         <div className="status-wrap">
-                            <p className="status-accepted">Accepted</p><FontAwesomeIcon onClick={() => this.updateStatus('Pending')} icon="times" />
+                            <p className="status-accepted">Accepted ({applicant.telephone})</p><FontAwesomeIcon onClick={() => this.updateStatus('Pending')} icon="times" />
                         </div>
                     );
 

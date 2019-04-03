@@ -11,6 +11,14 @@ library.add(faStar, faEdit, faSignOutAlt);
 
 class UserCard extends Component {
 
+    componentDidMount() {
+        // Formating need description to replace \n by <br>
+        let description = document.querySelector('.user-card-info-description').innerHTML;
+        let p = document.querySelector('.user-card-info-description');
+        let descriptionReplaced = description.replace(/\n/g, '<br>');
+        p.innerHTML = descriptionReplaced;
+    }
+
     render() {
         const { user, logout } = this.props;
 
@@ -36,7 +44,7 @@ class UserCard extends Component {
                         </div>
                         <div>
                             <p className="user-card-info-title">Jobs:</p>
-                            <p className="user-card-info-value">{user.jobsDone.length}</p>
+                            <p className="user-card-info-value">{user.jobsDone}</p>
                         </div>
                         <div>
                             <p className="user-card-info-title">Rate:</p>

@@ -43,14 +43,7 @@ class NeedDetail extends Component {
             let applies = allApplies.data.allApplies;
 
             // parsing applies to use in setSTate later
-            applies = applies.map(apply => {
-                return apply;
-                // return {
-                    
-                //     applicant: apply.applicant,
-                //     comment: apply.comment
-                // }
-            });
+            applies = applies.map(apply => apply);
 
             // check if I applied to this need
             let iApplied = applies.filter(apply => apply.applicant._id === userId);
@@ -170,7 +163,7 @@ class NeedDetail extends Component {
                             <div className="detail-card-info">
                                 <h3>{need.title}</h3>
                                 <p className="detail-card-info-tags">{this.getTags()}</p>
-                                <p>{need.owner.username}</p>
+                                <p><Link className="detail-card-info-tags-link" to={`/profile/${need.owner._id}`}>{need.owner.username}</Link></p>
                                 <div className="detail-card-description">
                                     <p>{need.description}</p>
                                 </div>

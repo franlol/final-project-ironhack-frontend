@@ -20,6 +20,7 @@ class NeedService {
     }
 
     async getAllbyUser(userId) {
+        console.log(userId)
         const needs = await this.need.get(`/need/all/${userId}`, { params: { userId } });
         return needs;
     }

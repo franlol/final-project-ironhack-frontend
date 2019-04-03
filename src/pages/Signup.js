@@ -11,6 +11,7 @@ class Signup extends Component {
     username: "",
     password: "",
     profession: '',
+    telephone: '',
   };
 
   handleFormSubmit = (event) => {
@@ -18,8 +19,9 @@ class Signup extends Component {
     const username = this.state.username;
     const password = this.state.password;
     const profession = this.state.profession;
+    const telephone = this.state.telephone;
 
-    this.props.signup({ username, password, profession })
+    this.props.signup({ username, password, profession, telephone })
       // .then(() => {
       //   this.setState({
       //       username: "",
@@ -35,25 +37,8 @@ class Signup extends Component {
   }
 
   render() {
-    const { username, password, profession } = this.state;
+    const { username, password, profession, telephone } = this.state;
     return (
-      // <main className="signup">
-      //   <h1 className="signup-title">Sign up</h1>
-      //   <form className="login-form" onSubmit={this.handleFormSubmit}>
-
-      //     <input type="text" name="username" value={username} label="Username" onChange={this.handleChange} />
-
-      //     <input type="passowrd" name="password" value={password} label="Password" onChange={this.handleChange} />
-      //     <div className="text-center mt-5">
-      //       <input type="submit" value="Signup" />
-      //     </div>
-      //   </form>
-      //     <div className="font-weight-light">
-      //       <p>Have an account? <Link to="/login">Login</Link></p>
-      //     </div>
-
-      // </main>
-
 
       <main className="login">
         <h1 className="login-title">Serv-Seeker</h1>
@@ -67,6 +52,11 @@ class Signup extends Component {
           <div className="login-field">
             <label htmlFor="login-profession">Profession:</label>
             <input required id="login-profession" type="text" name="profession" value={profession} onChange={this.handleChange} />
+          </div>
+
+          <div className="login-field">
+            <label htmlFor="login-telephone">Telephone:</label>
+            <input required id="login-telephone" type="text" name="telephone" value={telephone} onChange={this.handleChange} />
           </div>
 
           <div className="login-field">

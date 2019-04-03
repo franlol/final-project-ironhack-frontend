@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import { withAuth } from '../providers/AuthProvider';
-import {withRouter} from 'react-router';
+import { withRouter } from 'react-router';
 
 import authService from '../lib/auth-service';
 
@@ -9,7 +9,13 @@ import '../public/styles/profileedit.css';
 
 // Initialize Firebase
 import FileUploader from 'react-firebase-file-uploader';
-import firebase from 'firebase';
+// import firebase from 'firebase';
+
+//https://stackoverflow.com/questions/50707211/warning-it-looks-like-youre-using-the-development-build-of-the-firebase-js-sdk
+import firebase from 'firebase/app';
+// import 'firebase/database'; // If using Firebase database
+import 'firebase/storage';
+
 var config = {
     apiKey: "AIzaSyA8cHLrsaC3EZhZ9gRtE2G1OISyNQGUaFQ",
     authDomain: "serv-seeker.firebaseapp.com",
@@ -26,6 +32,7 @@ class ProfileEdit extends Component {
         profession: '',
         description: '',
         rate: '',
+        telephone: '',
         isLoaded: false,
 
         //firebase
@@ -49,12 +56,13 @@ class ProfileEdit extends Component {
     };
 
     componentDidMount = () => {
-        const { profession, description, rate } = this.props.user;
+        const { profession, description, rate, telephone } = this.props.user;
 
         this.setState({
             profession,
             description,
             rate,
+            telephone,
             isLoaded: true,
         })
     }
@@ -77,6 +85,7 @@ class ProfileEdit extends Component {
             photo: this.state.avatarURL,
             profession: this.state.profession,
             rate: this.state.rate,
+            telephone: this.state.telephone,
         }
         try {
             const response = await authService.edit(user);
@@ -89,7 +98,7 @@ class ProfileEdit extends Component {
 
     render() {
         const { user } = this.props;
-        const { profession, description, rate } = this.state;
+        const { profession, description, rate, telephone } = this.state;
 
         return (
             <>
@@ -126,13 +135,18 @@ class ProfileEdit extends Component {
                                     </div>
 
                                     <div className="form-input">
-                                        <label htmlFor="title">Description:</label>
-                                        <textarea value={description} onChange={this.formInputHandler} className="shadow" id="description" type="text" name="description"></textarea>
+                                        <label htmlFor="telephone">Telephone:</label>
+                                        <input required value={telephone} onChange={this.formInputHandler} className="shadow" id="telephone" type="tel" name="telephone" />
                                     </div>
 
                                     <div className="form-input">
                                         <label htmlFor="rate">Your rate:</label>
                                         <input required value={rate} onChange={this.formInputHandler} className="shadow" id="rate" type="number" name="rate" />
+                                    </div>
+
+                                    <div className="form-input">
+                                        <label htmlFor="title">Description:</label>
+                                        <textarea value={description} onChange={this.formInputHandler} className="shadow" id="description" type="text" name="description"></textarea>
                                     </div>
 
                                     <div className="form-input">

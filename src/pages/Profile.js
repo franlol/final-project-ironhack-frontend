@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+
 import { withAuth } from '../providers/AuthProvider';
+import { withRouter } from 'react-router';
 
 import needService from '../lib/need-service'
 import applyService from '../lib/apply-service';
+import userService from '../lib/user-service';
 
 import UserCard from '../components/UserCard';
 import MyNeeds from '../components/MyNeeds';
@@ -13,14 +16,26 @@ class Profile extends Component {
 
     // This arrays are sending to 'MyNeeds' component to render differents needs lists
     state = {
+        user: '',
         myNeeds: [],
         myApplies: [],
         isLoaded: false,
     }
 
     async componentDidMount() {
+        const { path } = this.props.match;
+        let user = '';
         try {
-            const { user } = this.props;
+            if (path === '/profile/:id') {
+
+                // try inside try, not pretty, but sometimes there are no alternatives.
+                const { id } = this.props.match.params;
+                const response = await userService.get(id);
+                user = response.data.user;
+            } else {
+                user = this.props.user;
+            }
+            console.log(user)
 
             // getting all my needs to pas MyNeeds component
             const myNeeds = await needService.getAllbyUser(user._id)
@@ -29,6 +44,7 @@ class Profile extends Component {
             const myApplies = await applyService.needsWhereUsedApplied(user._id);
 
             this.setState({
+                user,
                 myNeeds: myNeeds.data.needs.reverse(),
                 myApplies: myApplies.data.needs.reverse(),
                 isLoaded: true
@@ -39,14 +55,12 @@ class Profile extends Component {
     }
 
     render() {
-        const { logout, user } = this.props;
+        const { logout } = this.props;
+        const { user } = this.state;
 
         return (
             <>
-                {/* <div>
-                    <button onClick={logout}>Logout</button>
-                </div> */}
-                <UserCard user={user} logout={logout}/>
+                <UserCard user={user} logout={logout} />
                 <h4 className="profile-list-title">My needs:</h4>
                 <section className="needlist">
                     {this.state.isLoaded && <MyNeeds needs={this.state.myNeeds} />}
@@ -60,4 +74,4 @@ class Profile extends Component {
     }
 }
 
-export default withAuth(Profile);
+export default withRouter(withAuth(Profile));
