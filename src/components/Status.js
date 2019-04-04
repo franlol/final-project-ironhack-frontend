@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withAuth } from '../providers/AuthProvider';
+import io from 'socket.io-client';
 
 import ApplyService from '../lib/apply-service';
 
@@ -12,19 +13,45 @@ library.add(faTimes);
 
 class Status extends Component {
 
+
     state = {
+        socket: io(process.env.REACT_APP_SOCKET_IO),
         status: 'Pending'
+
+    }
+    componentDidMount = () => {
+
+        this.state.socket.on("NEED_STATUS_UPDATE", async () => {
+            this.updateStatus();
+        });
+
+        this.updateStatus();
+
     }
 
-    async componentDidMount() {
+    updateStatus = async () => {
         const { status } = this.props.apply;
+        console.log(this.state)
 
-        this.setState({
+        await this.setState({
             status: status === undefined ? 'Pending' : status
         });
+
     }
 
-    updateStatus = async (status) => {
+    // state = {
+    //     status: 'Pending'
+    // }
+
+    // async componentDidMount() {
+    //     const { status } = this.props.apply;
+
+    //     this.setState({
+    //         status: status === undefined ? 'Pending' : status
+    //     });
+    // }
+
+    setStatus = async (status) => {
         const { apply, user } = this.props;
         let updatedStatus;
 
@@ -51,8 +78,8 @@ class Status extends Component {
                     return (
                         <div className="status-wrap">
                             <>
-                                <p onClick={() => this.updateStatus('Accepted')} className="status-accept">Accept</p>
-                                <p onClick={() => this.updateStatus('Declined')} className="status-decline">Decline</p>
+                                <p onClick={() => this.setStatus('Accepted')} className="status-accept">Accept</p>
+                                <p onClick={() => this.setStatus('Declined')} className="status-decline">Decline</p>
                             </>
                         </div>
                     );
@@ -60,14 +87,14 @@ class Status extends Component {
                 case 'Accepted':
                     return (
                         <div className="status-wrap">
-                            <p className="status-accepted">Accepted ({applicant.telephone})</p><FontAwesomeIcon onClick={() => this.updateStatus('Pending')} icon="times" />
+                            <p className="status-accepted">Accepted ({applicant.telephone})</p><FontAwesomeIcon onClick={() => this.setStatus('Pending')} icon="times" />
                         </div>
                     );
 
                 case 'Declined':
                     return (
                         <div className="status-wrap">
-                            <p className="status-declined">Declined</p><FontAwesomeIcon onClick={() => this.updateStatus('Pending')} icon="times" />
+                            <p className="status-declined">Declined</p><FontAwesomeIcon onClick={() => this.setStatus('Pending')} icon="times" />
                         </div>
                     );
 

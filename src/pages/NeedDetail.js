@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-
 import { withAuth } from '../providers/AuthProvider';
+import { withRouter } from 'react-router';
+
+import io from 'socket.io-client';
 
 import ApplicantCard from '../components/ApplicantCard';
 import AddComment from '../components/AddComment';
@@ -24,50 +26,140 @@ class NeedDetail extends Component {
         isLoaded: false,
         isOwnNeed: false,
         iApplied: false,
+        socket: io(process.env.REACT_APP_SOCKET_IO),
     }
 
     async componentDidMount() {
+        // Adding new listener when user add need
+        this.state.socket.on("NEED_DATAIL_NEW_APPLY", () => {
+            this.applyUpdate();
+        });
+
+        // Adding new listener when user add need
+        this.state.socket.on("NEED_DATAIL_DELETE_NEED", () => {
+            this.props.history.push('/');
+        });
+
+        this.state.socket.on("NEED_DATAIL_EDIT_NEED", () => {
+            this.needsUpdate();
+        });
+
+        this.state.socket.on("NEED_STATUS_UPDATE", async () => {
+            console.log("hello")
+            await this.needsUpdate();
+            await this.applyUpdate();
+        });
+
+        await this.needsUpdate();
+        await this.applyUpdate();
+
+        this.formatDescription();
+
+        this.setState({
+            isLoaded: true,
+        });
+
+    }
+
+    componentWillUnmount() {
+        this.state.socket.disconnect();
+    }
+
+    needsUpdate = async () => {
         const needId = this.props.match.params.id;
         const userId = this.props.user._id;
 
         try {
-            // get the need by id
             const need = await needService.getById(needId);
             const needOwnerId = need.data.owner._id;
             let isOwnNeed = (userId === needOwnerId);
 
-            //getting all applies of needId
-            const allApplies = await applyService.getApplicants(needId);
-
-            // get clean array from json response (data). I get the apply data (applicant (populated), comments, timestamps etc..)
-            let applies = allApplies.data.allApplies;
-
-            // parsing applies to use in setSTate later
-            applies = applies.map(apply => apply);
-
-            // check if I applied to this need
-            let iApplied = applies.filter(apply => apply.applicant._id === userId);
-            iApplied = iApplied.length > 0;
-
             this.setState({
-                isLoaded: true,
                 need: need.data,
                 isOwnNeed,
-                iApplied,
-                applies: applies.reverse()
             });
 
         } catch (error) {
             console.log(error);
             this.props.history.push("/");
         }
-
-        // Formating need description to replace \n by <br>
-        let description = document.querySelector('.detail-card-description p').innerHTML;
-        let p = document.querySelector('.detail-card-description p');
-        let descriptionReplaced = description.replace(/\n/g, '<br>');
-        p.innerHTML = descriptionReplaced;
     }
+
+    applyUpdate = async () => {
+        const needId = this.props.match.params.id;
+        const userId = this.props.user._id;
+
+        //getting all applies of needId
+        const allApplies = await applyService.getApplicants(needId);
+
+        // get clean array from json response (data). I get the apply data (applicant (populated), comments, timestamps etc..)
+        let applies = allApplies.data.allApplies;
+
+        // parsing applies to use in setSTate later
+        applies = applies.map(apply => apply);
+
+        // check if I applied to this need
+        let iApplied = applies.filter(apply => apply.applicant._id === userId);
+        iApplied = iApplied.length > 0;
+
+        this.setState({
+            iApplied,
+            applies: applies.reverse(),
+        });
+    }
+
+    formatDescription = () => {
+        if (this.state.isLoaded) {
+            // Formating need description to replace \n by <br>
+            let description = document.querySelector('.detail-card-description p').innerHTML;
+            let p = document.querySelector('.detail-card-description p');
+            let descriptionReplaced = description.replace(/\n/g, '<br>');
+            p.innerHTML = descriptionReplaced;
+        }
+    }
+
+    // async componentDidMount() {
+    //     const needId = this.props.match.params.id;
+    //     const userId = this.props.user._id;
+
+    //     try {
+    //         // get the need by id
+    //         const need = await needService.getById(needId);
+    //         const needOwnerId = need.data.owner._id;
+    //         let isOwnNeed = (userId === needOwnerId);
+
+    //         //getting all applies of needId
+    //         const allApplies = await applyService.getApplicants(needId);
+
+    //         // get clean array from json response (data). I get the apply data (applicant (populated), comments, timestamps etc..)
+    //         let applies = allApplies.data.allApplies;
+
+    //         // parsing applies to use in setSTate later
+    //         applies = applies.map(apply => apply);
+
+    //         // check if I applied to this need
+    //         let iApplied = applies.filter(apply => apply.applicant._id === userId);
+    //         iApplied = iApplied.length > 0;
+
+    //         this.setState({
+    //             isLoaded: true,
+    //             need: need.data,
+    //             isOwnNeed,
+    //             iApplied,
+    //             applies: applies.reverse()
+    //         });
+
+    //     } catch (error) {
+    //         console.log(error);
+    //         this.props.history.push("/");
+    //     }
+
+    //     // Formating need description to replace \n by <br>
+    //     let description = document.querySelector('.detail-card-description p').innerHTML;
+    //     let p = document.querySelector('.detail-card-description p');
+    //     let descriptionReplaced = description.replace(/\n/g, '<br>');
+    //     p.innerHTML = descriptionReplaced;
+    // }
 
     apply = async (comment = '') => {
         if (this.state.isOwnNeed) {
@@ -94,7 +186,7 @@ class NeedDetail extends Component {
 
     fillApplicantsList = () => {
         const applies = this.state.applies.map((apply, i) => {
-            return <ApplicantCard key={i} apply={apply} isOwnNeed={this.state.isOwnNeed}/>;
+            return <ApplicantCard key={i} apply={apply} isOwnNeed={this.state.isOwnNeed} />;
         });
         return applies;
     }
@@ -142,9 +234,10 @@ class NeedDetail extends Component {
         }
     }
 
+    // return tags from current need
     getTags = () => {
         return this.state.need.tags.map((n, i) => {
-            return `${n.text}${i+1 < this.state.need.tags.length ? ',' : ''} `;
+            return `${n.text}${i + 1 < this.state.need.tags.length ? ',' : ''} `;
         })
     }
 
@@ -205,4 +298,4 @@ class NeedDetail extends Component {
 
 }
 
-export default withAuth(NeedDetail);
+export default withRouter(withAuth(NeedDetail));

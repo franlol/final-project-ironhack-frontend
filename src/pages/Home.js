@@ -24,17 +24,17 @@ class Home extends Component {
   componentDidMount() {
     // Adding new listener to socket
     this.state.socket.on("HOME_NEW_NEED", () => {
-      this.updateState();
+      this.updateNeeds();
     });
 
-    this.updateState();
+    this.updateNeeds();
   }
 
   componentWillUnmount() {
     this.state.socket.disconnect();
   }
 
-  updateState = async () => {
+  updateNeeds = async () => {
     try {
       // only 1 query to get needs and then i work only with this array
       let response = await needService.getAll();
