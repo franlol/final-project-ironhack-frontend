@@ -27,12 +27,6 @@ class Signup extends Component {
     const telephone = this.state.telephone;
 
     this.props.signup({ username, password, profession, telephone })
-      // .then(() => {
-      //   this.setState({
-      //       username: "",
-      //       password: "",
-      //   });
-      // })
       .then(signup => {
         if (signup !== undefined) {
           let error = '';
@@ -49,23 +43,6 @@ class Signup extends Component {
       })
     // .catch(error => console.log("CATCH", error.response.data))  // No catch because from AuthProvider im returning err, so is what i get here
   }
-
-  // try {
-  //   const signup = await this.props.signup({ username, password, profession, telephone });
-  //   console.log(signup)
-
-  //   if (signup !== undefined && signup.response.data.error === true) {
-
-  //     this.setState({
-  //       error: true,
-  //       errors: ['User or pw incorrect.'],
-  //     });
-  // } catch (error) {
-  //   this.setState({
-  //     error: true,
-  //     errors: ['User or pw incorrect.'],
-  //   });
-  // }
 
 
 
