@@ -1,6 +1,6 @@
 //https://www.npmjs.com/package/react-tag-input
-
 import React, { Component } from 'react';
+
 import TagInput from '../components/taginput';
 
 class FormAdd extends Component {
@@ -46,6 +46,7 @@ class FormAdd extends Component {
                     <label htmlFor="description">About need:</label>
                     <textarea value={description} onChange={this.formInputHandler} name="description" id="description" className="shadow" placeholder="Something about your need.."></textarea>
                 </div>
+
                 <div className="form-input">
                     <button className="shadow" type="submit">Create</button>
                 </div>

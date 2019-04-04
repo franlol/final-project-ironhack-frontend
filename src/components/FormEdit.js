@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 
 import TagInput from '../components/taginput';
-import Error from '../components/Error';
 
 import needService from '../lib/need-service';
 
@@ -12,7 +11,7 @@ class FormEdit extends Component {
         title: '',
         rate: '',
         description: '',
-        tags: []
+        tags: [],
     }
 
     async componentDidMount() {
@@ -27,7 +26,7 @@ class FormEdit extends Component {
                 description: need.data.description,
                 tags: need.data.tags,
             });
-            
+
         } catch (err) {
             console.log(err)
             // this.props.history.push(`/`);
@@ -45,12 +44,12 @@ class FormEdit extends Component {
     }
 
     render() {
-        const { updateNeed, error, errors } = this.props;
+        const { updateNeed } = this.props;
         const { id } = this.props.match.params;
         const { title, rate, tags, description } = this.state;
 
         return (
-            
+
             <form onSubmit={(e) => updateNeed(e, id, this.state)}>
                 <div className="form-input">
                     <label htmlFor="title">Title:</label>
@@ -71,36 +70,12 @@ class FormEdit extends Component {
                     <label htmlFor="description">About need:</label>
                     <textarea value={description} onChange={this.formInputHandler} name="description" id="description" className="shadow" placeholder="Something about your need.."></textarea>
                 </div>
-                {error && <Error errors={errors} />}
+
                 <div className="form-input">
                     <button className="shadow" type="submit">Edit</button>
                 </div>
             </form>
         );
-
-
-        // return (
-        //     <form onSubmit={(e) => updateNeed(e, id, this.state.title, this.state.rate, this.state.description)}>
-        //         <div className="form-input">
-        //             <label htmlFor="title">Title:</label>
-        //             <input value={this.state.title} onChange={this.formInputHandler} className="shadow" id="title" type="text" name="title" />
-        //         </div>
-
-        //         <div className="form-input">
-        //             <label htmlFor="rate">Rate:</label>
-        //             <input value={this.state.rate} onChange={this.formInputHandler} className="shadow" id="rate" type="number" name="rate" />
-        //         </div>
-
-        //         <div className="form-input">
-        //             <label htmlFor="description">Description:</label>
-        //             <textarea value={this.state.description} onChange={this.formInputHandler} name="description" id="description" className="shadow" placeholder="Description here.."></textarea>
-        //         </div>
-
-        //         <div className="form-input">
-        //             <button className="shadow" type="submit">Edit</button>
-        //         </div>
-        //     </form>
-        // );
     }
 
 }

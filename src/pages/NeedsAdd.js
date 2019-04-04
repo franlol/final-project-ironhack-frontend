@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { withAuth } from '../providers/AuthProvider';
 import needService from '../lib/need-service';
 
-
+import Error from '../components/Error';
 import FormAdd from '../components/FormAdd';
 import FormEdit from '../components/FormEdit';
 
@@ -17,7 +17,6 @@ class NeedsAdd extends Component {
 	}
 
 	componentDidMount() {
-		// console.log(this.props.match.path)
 		this.setState({
 			isEdit: this.props.match.path === '/need/:id/edit',
 			// isLoading: false, 
@@ -30,10 +29,9 @@ class NeedsAdd extends Component {
 		const { title, rate, description, tags } = need;
 
 		if (!title || !rate || !description) {
-			console.log("missing data");
 			this.setState({
 				error: true,
-				errors: [...this.state.errors, 'Missing data']
+				errors: ['Please, fill all required fields (*)']
 			})
 			return;
 		}
@@ -51,11 +49,18 @@ class NeedsAdd extends Component {
 		const userId = this.props.user._id;
 		const { title, rate, description, tags } = need;
 
+		if (!title || !rate || !description) {
+			this.setState({
+				error: true,
+				errors: ['Please, fill all required fields (*)']
+			})
+			return;
+		}
+
 		try {
 			const updatedNeed = await needService.update(userId, { needId, title, rate, description, tags });
 			this.props.history.push(`/need/${updatedNeed.data._id}`);
 		} catch (err) {
-			//TODO FILL INPUT BORDERS WITH RED
 			console.log(err);
 		}
 
@@ -72,6 +77,7 @@ class NeedsAdd extends Component {
 					<div className="form-content">
 						{isEdit && <FormEdit error={this.state.error} errors={this.state.errors} updateNeed={this.updateNeed} />}
 						{!isEdit && <FormAdd addNeed={this.addNeed} />}
+						{this.state.error && <Error errors={this.state.errors} />}
 					</div>
 
 				</main>
