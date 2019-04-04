@@ -117,49 +117,6 @@ class NeedDetail extends Component {
         }
     }
 
-    // async componentDidMount() {
-    //     const needId = this.props.match.params.id;
-    //     const userId = this.props.user._id;
-
-    //     try {
-    //         // get the need by id
-    //         const need = await needService.getById(needId);
-    //         const needOwnerId = need.data.owner._id;
-    //         let isOwnNeed = (userId === needOwnerId);
-
-    //         //getting all applies of needId
-    //         const allApplies = await applyService.getApplicants(needId);
-
-    //         // get clean array from json response (data). I get the apply data (applicant (populated), comments, timestamps etc..)
-    //         let applies = allApplies.data.allApplies;
-
-    //         // parsing applies to use in setSTate later
-    //         applies = applies.map(apply => apply);
-
-    //         // check if I applied to this need
-    //         let iApplied = applies.filter(apply => apply.applicant._id === userId);
-    //         iApplied = iApplied.length > 0;
-
-    //         this.setState({
-    //             isLoaded: true,
-    //             need: need.data,
-    //             isOwnNeed,
-    //             iApplied,
-    //             applies: applies.reverse()
-    //         });
-
-    //     } catch (error) {
-    //         console.log(error);
-    //         this.props.history.push("/");
-    //     }
-
-    //     // Formating need description to replace \n by <br>
-    //     let description = document.querySelector('.detail-card-description p').innerHTML;
-    //     let p = document.querySelector('.detail-card-description p');
-    //     let descriptionReplaced = description.replace(/\n/g, '<br>');
-    //     p.innerHTML = descriptionReplaced;
-    // }
-
     apply = async (comment = '') => {
         if (this.state.isOwnNeed) {
             this.props.history.push("/");
@@ -206,10 +163,6 @@ class NeedDetail extends Component {
             if (this.state.iApplied) {
                 return <p className="detail-card-info-title">Already applied</p>
             }
-            // Updated: Now i use this comparation and button with new Apply system (with comments)
-            // else {
-            //     return <p className="detail-card-info-apply"><button onClick={() => this.apply()}>Apply</button></p>
-            // }
         }
     }
 

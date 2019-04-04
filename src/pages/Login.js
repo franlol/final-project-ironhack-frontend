@@ -15,15 +15,6 @@ class Login extends Component {
     errors: [],
   }
 
-  // handleFormSubmit = (event) => {
-  //   event.preventDefault();
-  //   const { username, password } = this.state
-
-  //   this.props.login({ username, password })
-  //     .then(() => { })
-  //     .catch(error => console.log(error))
-  // }
-
   handleFormSubmit = async (event) => {
     event.preventDefault();
     const { username, password } = this.state;
