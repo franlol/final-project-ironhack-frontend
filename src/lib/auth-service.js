@@ -19,13 +19,7 @@ class AuthService {
     return this.auth.post('/auth/login', { username, password })
       .then(({ data }) => {
         console.log("DATA", data)
-         return data
-        }
-         )
-      .catch((err) => {
-        if (err.response.data) {
-          console.log(err.response.data)
-        }
+        return data
       });
   }
 

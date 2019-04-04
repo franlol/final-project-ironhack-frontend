@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withAuth } from '../providers/AuthProvider';
 import { Link } from 'react-router-dom';
 
-import Error from '../components/error';
+import Error from '../components/Error';
 
 import '../public/styles/login.css';
 
@@ -31,15 +31,18 @@ class Login extends Component {
     try {
       const loggin = await this.props.login({ username, password });
       if (loggin !== undefined && loggin.response.data.error === true) {
-        
+
         this.setState({
           error: true,
-          errors: [...this.state.errors, 'User or pw incorrect.'],
+          errors: ['User or pw incorrect.'],
         });
 
       }
     } catch (err) {
-      console.log("ERROR", err.data)
+      this.setState({
+        error: true,
+        errors: ['User or pw incorrect.'],
+      });
     }
   }
 
@@ -67,7 +70,7 @@ class Login extends Component {
           </div>
 
           <div className="login-field">
-          {this.state.error && <Error errors={this.state.errors}/>}
+            {this.state.error && <Error errors={this.state.errors} />}
           </div>
 
           <div className="login-button">

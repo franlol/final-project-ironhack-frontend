@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 
 import TagInput from '../components/taginput';
-import Error from '../components/error';
+import Error from '../components/Error';
 
 import needService from '../lib/need-service';
 
