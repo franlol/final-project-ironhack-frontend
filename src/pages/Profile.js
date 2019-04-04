@@ -35,7 +35,6 @@ class Profile extends Component {
             } else {
                 user = this.props.user;
             }
-            console.log(user)
 
             // getting all my needs to pas MyNeeds component
             const myNeeds = await needService.getAllbyUser(user._id)

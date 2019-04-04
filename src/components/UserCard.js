@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -21,6 +22,8 @@ class UserCard extends Component {
 
     render() {
         const { user, logout } = this.props;
+        const { path } = this.props.match;
+        const isMyProfile = path === '/profile';
 
         return (
             <article className="user-card shadow">
@@ -31,8 +34,11 @@ class UserCard extends Component {
                     <div className="user-card-info">
                         <div className="user-edit">
                             <h3 className="user-card-info-title">{user.username}</h3>
-                            <Link className="user-action-edit" to="/profile/edit"><FontAwesomeIcon icon="edit" /></Link>
-                            <button onClick={logout} className="user-action-logout"><FontAwesomeIcon icon="sign-out-alt" /></button>
+                            {isMyProfile &&
+                                <>
+                                    <Link className="user-action-edit" to="/profile/edit"><FontAwesomeIcon icon="edit" /></Link>
+                                    <button onClick={logout} className="user-action-logout"><FontAwesomeIcon icon="sign-out-alt" /></button>
+                                </>}
                         </div>
                     </div>
                     <p>{user.profession}</p>
@@ -60,4 +66,4 @@ class UserCard extends Component {
 
 }
 
-export default UserCard;
+export default withRouter(UserCard);

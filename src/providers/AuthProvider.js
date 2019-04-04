@@ -60,7 +60,7 @@ export default class AuthProvider extends Component {
       })
       .catch(err => {
         if (err.response.data.error) {
-          return err.response.data.error
+          return err.response.data.error;
         }
 
       })
@@ -71,7 +71,11 @@ export default class AuthProvider extends Component {
       .then((user) => {
         this.setUser(user);
       })
-      .catch(error => console.log(error))
+      .catch(error => {
+        if (error.response.data) {
+          return error.response.data;
+        }
+      })
   }
 
   componentDidMount() {

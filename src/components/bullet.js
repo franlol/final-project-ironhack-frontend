@@ -2,12 +2,6 @@ import React, { Component } from 'react';
 
 class bullet extends Component {
 
-    constructor(props) {
-        super(props);
-
-        console.log(this.props)
-    }
-
     state = {
         number: 0
     }

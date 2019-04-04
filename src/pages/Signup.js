@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { withAuth } from '../providers/AuthProvider';
 
+import Error from '../components/Error';
+
 import '../public/styles/login.css';
 
 class Signup extends Component {
@@ -12,9 +14,12 @@ class Signup extends Component {
     password: "",
     profession: '',
     telephone: '',
+
+    error: false,
+    errors: [],
   };
 
-  handleFormSubmit = (event) => {
+  handleFormSubmit = async (event) => {
     event.preventDefault();
     const username = this.state.username;
     const password = this.state.password;
@@ -28,8 +33,41 @@ class Signup extends Component {
       //       password: "",
       //   });
       // })
-      .catch(error => console.log(error))
+      .then(signup => {
+        if (signup !== undefined) {
+          let error = '';
+          if (signup.message === 'Validation error') {
+            error = 'Validation error';
+          } else if (signup.message === 'Unprocessable Entity') {
+            error = 'Username already taken';
+          }
+          this.setState({
+            error: true,
+            errors: [error],
+          });
+        }
+      })
+    // .catch(error => console.log("CATCH", error.response.data))  // No catch because from AuthProvider im returning err, so is what i get here
   }
+
+  // try {
+  //   const signup = await this.props.signup({ username, password, profession, telephone });
+  //   console.log(signup)
+
+  //   if (signup !== undefined && signup.response.data.error === true) {
+
+  //     this.setState({
+  //       error: true,
+  //       errors: ['User or pw incorrect.'],
+  //     });
+  // } catch (error) {
+  //   this.setState({
+  //     error: true,
+  //     errors: ['User or pw incorrect.'],
+  //   });
+  // }
+
+
 
   handleChange = (event) => {
     const { name, value } = event.target;
@@ -56,13 +94,15 @@ class Signup extends Component {
 
           <div className="login-field">
             <label htmlFor="login-telephone">Telephone:</label>
-            <input required id="login-telephone" type="text" name="telephone" value={telephone} onChange={this.handleChange} />
+            <input required id="login-telephone" type="number" name="telephone" value={telephone} onChange={this.handleChange} />
           </div>
 
           <div className="login-field">
             <label htmlFor="login-password">Password:</label>
             <input required id="login-password" type="password" name="password" value={password} onChange={this.handleChange} />
           </div>
+
+          {this.state.error && <Error errors={this.state.errors} />}
 
           <div className="login-button">
             <input type="submit" value="Sign up" />
