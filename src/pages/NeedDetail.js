@@ -95,6 +95,7 @@ class NeedDetail extends Component {
         // get clean array from json response (data). I get the apply data (applicant (populated), comments, timestamps etc..)
         let applies = allApplies.data.allApplies;
 
+        // TODO CHECK
         // parsing applies to use in setSTate later
         applies = applies.map(apply => apply);
 

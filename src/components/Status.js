@@ -16,28 +16,28 @@ class Status extends Component {
 
     state = {
         socket: io(process.env.REACT_APP_SOCKET_IO),
-        status: 'Pending'
+        //status: 'Pending'
 
     }
-    componentDidMount = () => {
+    // componentDidMount = () => {
 
-        this.state.socket.on("NEED_STATUS_UPDATE", async () => {
-            this.updateStatus();
-        });
+    //     this.state.socket.on("NEED_STATUS_UPDATE", async () => {
+    //          await this.updateStatus();
+    //     });
 
-        this.updateStatus();
+    //     this.updateStatus();
 
-    }
+    // }
+    
 
-    updateStatus = async () => {
-        const { status } = this.props.apply;
-        console.log(this.state)
+    // updateStatus = () => {
+    //     const { status } = this.props.apply;
+    //     console.log("status update",status)
+    //     this.setState({
+    //         status: status === undefined ? 'Pending' : status
+    //     });
 
-        await this.setState({
-            status: status === undefined ? 'Pending' : status
-        });
-
-    }
+    // }
 
     // state = {
     //     status: 'Pending'
@@ -69,9 +69,9 @@ class Status extends Component {
     }
 
     render() {
-        const { status } = this.state;
+        const { status } = this.props.apply;
         const { isOwnNeed, user, apply, applicant } = this.props;
-
+        console.log("rendered  status with status",status)
         if (isOwnNeed) {
             switch (status) {
                 case 'Pending':
