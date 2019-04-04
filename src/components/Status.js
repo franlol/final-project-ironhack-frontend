@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { withAuth } from '../providers/AuthProvider';
+import { withRouter } from 'react-router';
+
 import io from 'socket.io-client';
 
 import ApplyService from '../lib/apply-service';
@@ -16,40 +18,7 @@ class Status extends Component {
 
     state = {
         socket: io(process.env.REACT_APP_SOCKET_IO),
-        //status: 'Pending'
-
     }
-    // componentDidMount = () => {
-
-    //     this.state.socket.on("NEED_STATUS_UPDATE", async () => {
-    //          await this.updateStatus();
-    //     });
-
-    //     this.updateStatus();
-
-    // }
-    
-
-    // updateStatus = () => {
-    //     const { status } = this.props.apply;
-    //     console.log("status update",status)
-    //     this.setState({
-    //         status: status === undefined ? 'Pending' : status
-    //     });
-
-    // }
-
-    // state = {
-    //     status: 'Pending'
-    // }
-
-    // async componentDidMount() {
-    //     const { status } = this.props.apply;
-
-    //     this.setState({
-    //         status: status === undefined ? 'Pending' : status
-    //     });
-    // }
 
     setStatus = async (status) => {
         const { apply, user } = this.props;
@@ -59,7 +28,7 @@ class Status extends Component {
             const updated = await ApplyService.updateStatus(apply._id, { status, userId: user._id, applyId: apply._id });
             updatedStatus = updated.data.Apply.status;
         } catch (err) {
-            console.log(err)
+            this.props.history.push("/NoMatch");
         }
 
         this.setState({
@@ -71,7 +40,7 @@ class Status extends Component {
     render() {
         const { status } = this.props.apply;
         const { isOwnNeed, user, apply, applicant } = this.props;
-        console.log("rendered  status with status",status)
+
         if (isOwnNeed) {
             switch (status) {
                 case 'Pending':
@@ -123,9 +92,7 @@ class Status extends Component {
             </div>
         );
 
-
-
     }
 }
 
-export default withAuth(Status);
+export default withRouter(withAuth(Status));

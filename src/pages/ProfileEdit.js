@@ -92,7 +92,7 @@ class ProfileEdit extends Component {
             this.props.setUser(response.data.user)
             this.props.history.push('/profile');
         } catch (err) {
-            console.log(err)
+            this.props.history.push("/NoMatch");
         }
     }
 

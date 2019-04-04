@@ -45,7 +45,6 @@ class NeedDetail extends Component {
         });
 
         this.state.socket.on("NEED_STATUS_UPDATE", async () => {
-            console.log("hello")
             await this.needsUpdate();
             await this.applyUpdate();
         });
@@ -80,8 +79,7 @@ class NeedDetail extends Component {
             });
 
         } catch (error) {
-            console.log(error);
-            this.props.history.push("/");
+            this.props.history.push("/NoMatch");
         }
     }
 
@@ -180,8 +178,7 @@ class NeedDetail extends Component {
             });
 
         } catch (error) {
-            console.log(error);
-            this.props.history.push("/");
+            this.props.history.push("/NoMatch");
         }
     }
 
@@ -230,8 +227,7 @@ class NeedDetail extends Component {
             this.props.history.push("/");
 
         } catch (err) {
-            this.props.history.push("/");
-            console.log(err)
+            this.props.history.push("/NoMatch");
         }
     }
 

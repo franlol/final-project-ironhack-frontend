@@ -28,7 +28,7 @@ class FormEdit extends Component {
             });
 
         } catch (err) {
-            this.props.history.push("/");
+            this.props.history.push("/NoMatch");
         }
     }
 

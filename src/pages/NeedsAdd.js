@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import { withRouter } from 'react-router';
 import { withAuth } from '../providers/AuthProvider';
 import needService from '../lib/need-service';
 
@@ -40,7 +41,7 @@ class NeedsAdd extends Component {
 			const need = await needService.add({ id: _id, title, rate, description, tags });
 			this.props.history.push(`/need/${need.data.need._id}`);
 		} catch (err) {
-			console.log(err);
+			this.props.history.push("/NoMatch");
 		}
 	}
 
@@ -61,7 +62,7 @@ class NeedsAdd extends Component {
 			const updatedNeed = await needService.update(userId, { needId, title, rate, description, tags });
 			this.props.history.push(`/need/${updatedNeed.data._id}`);
 		} catch (err) {
-			console.log(err);
+			this.props.history.push("/NoMatch");
 		}
 
 	}
@@ -86,4 +87,4 @@ class NeedsAdd extends Component {
 	}
 }
 
-export default withAuth(NeedsAdd);
+export default withRouter(withAuth(NeedsAdd));

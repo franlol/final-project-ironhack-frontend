@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import io from 'socket.io-client';
 
+import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 
 import needService from '../lib/need-service';
@@ -45,7 +46,7 @@ class Home extends Component {
       this.setState({ needs, filteredNeeds, latestNeeds: latestNeeds, isLoaded: true });
 
     } catch (error) {
-      console.log(error);
+      this.props.history.push("/NoMatch");
     }
   }
 
@@ -103,4 +104,4 @@ class Home extends Component {
 
 }
 
-export default Home;
+export default withRouter(Home);

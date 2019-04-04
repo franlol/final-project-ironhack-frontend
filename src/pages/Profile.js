@@ -49,7 +49,7 @@ class Profile extends Component {
                 isLoaded: true
             });
         } catch (err) {
-            console.log(err)
+            this.props.history.push("/NoMatch");
         }
     }
 
