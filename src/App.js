@@ -14,6 +14,7 @@ import Profile from './pages/Profile';
 import NeedDetail from './pages/NeedDetail';
 import SearchResult from './pages/SearchResult';
 import ProfileEdit from './pages/ProfileEdit';
+import NoMatch from './pages/NoMatch';
 
 import './public/styles/app.css';
 
@@ -33,6 +34,7 @@ class App extends Component {
             <PrivateRoute exact path="/profile" component={Profile} />
             <PrivateRoute exact path="/profile/edit" component={ProfileEdit} />
             <PrivateRoute exact path="/profile/:id" component={Profile} />
+            <PrivateRoute component={NoMatch} />
             {/* Auth routes */}
             <AnonRoute path="/signup" component={Signup} />
             <AnonRoute path="/login" component={Login} />
