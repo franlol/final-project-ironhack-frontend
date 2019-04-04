@@ -17,7 +17,16 @@ class AuthService {
   login(user) {
     const { username, password } = user;
     return this.auth.post('/auth/login', { username, password })
-      .then(({ data }) => data);
+      .then(({ data }) => {
+        console.log("DATA", data)
+         return data
+        }
+         )
+      .catch((err) => {
+        if (err.response.data) {
+          console.log(err.response.data)
+        }
+      });
   }
 
   logout() {
